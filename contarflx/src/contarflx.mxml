@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:services="services.*"
+			   minWidth="955" minHeight="600">
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			
+			
+			protected function btHome_clickHandler(event:MouseEvent):void
+			{
+				area.unloadModule();
+				area.minWidth = 990;
+				area.minHeight = 550;
+				area.percentWidth = 100;
+				area.percentHeight = 100;
+				area.url = "modulos/Home.swf";
+				area.loadModule();
+			}
+			protected function btSistema_clickHandler(event:MouseEvent):void
+			{
+				area.unloadModule();
+				area.minWidth = 990;
+				area.minHeight = 550;
+				area.percentWidth = 100;
+				area.percentHeight = 100;
+				area.url = "modulos/sistema/SistemaLst.swf";
+				area.loadModule();
+			}
+			
+			protected function btAgente_clickHandler(event:MouseEvent):void
+			{
+				area.unloadModule();
+				area.minWidth = 990;
+				area.minHeight = 550;
+				area.percentWidth = 100;
+				area.percentHeight = 100;
+				area.url = "modulos/agente/AgenteLst.swf";
+				area.loadModule();
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:BorderContainer left="10" top="10" bottom="10" width="141">
+		<s:Button id="btSistema" x="10" y="38" width="119" label="Sistemas"
+				  click="btSistema_clickHandler(event)"/>
+		<s:Button id="btAgente" x="10" y="67" width="119" label="Agentes"
+				  click="btAgente_clickHandler(event)"/>
+		<s:Button id="btHome" x="10" y="10" width="119" label="Home"
+				  click="btHome_clickHandler(event)"/>
+		<s:Button id="btTarefas" x="10" y="96" width="119" label="Tarefas"/>
+	</s:BorderContainer>
+	<s:BorderContainer left="159" right="10" top="10" bottom="10">
+		<s:ModuleLoader id="area" x="0" y="0" width="100%" height="100%">
+		</s:ModuleLoader>
+	</s:BorderContainer>
+</s:Application>
