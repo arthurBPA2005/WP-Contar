@@ -25,6 +25,7 @@
     <module application="src/contarflx.mxml" destPath="modulos/Home.swf" optimize="true" sourcePath="src/modulos/Home.mxml"/>
     <module application="src/contarflx.mxml" destPath="modulos/sistema/SistemaLst.swf" optimize="true" sourcePath="src/modulos/sistema/SistemaLst.mxml"/>
     <module application="src/contarflx.mxml" destPath="modulos/agente/AgenteLst.swf" optimize="true" sourcePath="src/modulos/agente/AgenteLst.mxml"/>
+    <module application="src/contarflx.mxml" destPath="modulos/tarefa/TarefaLst.swf" optimize="true" sourcePath="src/modulos/tarefa/TarefaLst.mxml"/>
   </modules>
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>

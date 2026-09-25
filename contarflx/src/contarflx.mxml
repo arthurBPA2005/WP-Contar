@@ -41,7 +41,16 @@
 				area.url = "modulos/agente/AgenteLst.swf";
 				area.loadModule();
 			}
-			
+			protected function btTarefa_clickHandler(event:MouseEvent):void
+			{
+				area.unloadModule();
+				area.minWidth = 990;
+				area.minHeight = 550;
+				area.percentWidth = 100;
+				area.percentHeight = 100;
+				area.url = "modulos/tarefa/TarefaLst.swf";
+				area.loadModule();
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -54,7 +63,8 @@
 				  click="btAgente_clickHandler(event)"/>
 		<s:Button id="btHome" x="10" y="10" width="119" label="Home"
 				  click="btHome_clickHandler(event)"/>
-		<s:Button id="btTarefas" x="10" y="96" width="119" label="Tarefas"/>
+		<s:Button id="btTarefa" x="10" y="96" width="119" label="Tarefas"
+				  click="btTarefa_clickHandler(event)"/>
 	</s:BorderContainer>
 	<s:BorderContainer left="159" right="10" top="10" bottom="10">
 		<s:ModuleLoader id="area" x="0" y="0" width="100%" height="100%">

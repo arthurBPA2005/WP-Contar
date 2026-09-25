@@ -12,11 +12,9 @@
 		<channel ref="my-amf" />
 	</default-channels>
 
-	<destination id="testeService">
-		<properties>
-			<source>
-				br.arthur.contarsrv.services.TesteService
-			</source>
-		</properties>
-	</destination>
+	<destination id="sistemaService">
+    <properties>
+        <source>br.arthur.contarsrv.services.SistemaService</source>
+    </properties>
+</destination>
 </service>
