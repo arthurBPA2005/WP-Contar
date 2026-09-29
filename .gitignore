@@ -1,0 +1,11 @@
+# Build do Maven / Eclipse (m2e-wtp)
+contarsrv/target/
+
+# Saida do Flash Builder (compila direto no webapp do backend)
+contarsrv/src/main/webapp/*.swf
+contarsrv/src/main/webapp/modulos/
+contarsrv/src/main/webapp/contarflx.html
+contarsrv/src/main/webapp/swfobject.js
+contarsrv/src/main/webapp/history/
+contarflx/bin-debug/
+contarflx/bin-release/
