@@ -68,7 +68,15 @@
             <url>https://repository.jboss.org/nexus/content/groups/public/</url>
             <layout>default</layout>
         </repository>
+
+   		<!-- Para incluir o flex-rds-server -->
+		<repository>
+			<id>clojars.org</id>
+			<url>https://repo.clojars.org</url>
+		</repository>
+
     </repositories>
+    
     <pluginRepositories>
         <pluginRepository>
             <releases>
@@ -145,12 +153,18 @@
             <scope>test</scope>               
         </dependency>
         
-		<!-- FLEX / BlazeDS -->
+        <!-- FLEX -->
+		<!-- https://mvnrepository.com/artifact/com.adobe.flex/flex-rds-server -->
+		<dependency>
+			<groupId>com.adobe.flex</groupId>
+			<artifactId>flex-rds-server</artifactId>
+			<version>4.0.0</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.flex.blazeds/flex-messaging-common -->
 		<dependency>
 			<groupId>org.apache.flex.blazeds</groupId>
 			<artifactId>flex-messaging-common</artifactId>
-			<version>${version.blazeds}</version>
+			<version>4.7.0</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>xml-apis</artifactId>
@@ -162,7 +176,7 @@
 		<dependency>
 			<groupId>org.apache.flex.blazeds</groupId>
 			<artifactId>flex-messaging-core</artifactId>
-			<version>${version.blazeds}</version>
+			<version>4.7.0</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>tools</artifactId>
@@ -174,8 +188,15 @@
 		<dependency>
 			<groupId>org.apache.flex.blazeds</groupId>
 			<artifactId>flex-messaging-remoting</artifactId>
-			<version>${version.blazeds}</version>
+			<version>4.7.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.flex.blazeds/flex-messaging-proxy -->
+		<dependency>
+			<groupId>org.apache.flex.blazeds</groupId>
+			<artifactId>flex-messaging-proxy</artifactId>
+			<version>4.7.0</version>
+		</dependency>
+
     </dependencies>
 	
     <build>

@@ -1,8 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:services="services.*"
+			   width="958" height="510" title="Cadastro de sistema" creationPolicy="all">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import valueObjects.Sistema;
+			
+			[Bindable]
+			private var controleEnable :Boolean = true;
+			
+			[Bindable]
+			private var entity :Sistema = null;
+			
+			private var novo :Boolean = true;
+			
+			protected function btFechar_clickHandler(event:MouseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+			public function btNovo_clickHandler(event:MouseEvent):void
+			{
+				novo = true;
+				controleEnable = false;
+				entity = new Sistema();
+			}
+			
+			
+			protected function btCancelar_clickHandler(event:MouseEvent):void
+			{
+				if (novo) {
+					PopUpManager.removePopUp(this);
+				} else {
+					controleEnable = true;
+					preencheTela(entity.codSistema);
+				}
+			}
+			
+			public function btAlterar_clickHandler(event:MouseEvent):void
+			{
+				novo = false;
+				controleEnable = false;
+			}
+			
+			public function preencheTela(codSistema:String):void
+			{
+				getEntityResult.token = sistemaService.getEntity(codSistema);
+			}
+			
+			protected function getEntityResult_resultHandler(event:ResultEvent):void
+			{
+				entity = event.result as Sistema;
+			}
+			
+			protected function btApagar_clickHandler(event:MouseEvent):void
+			{
+				delete_method(edtCodSistema.text);
+			}
+			
+			
+			protected function delete_method(arg0:String):void
+			{
+				delete_methodResult.token = sistemaService.delete_method(arg0);
+			}
+			
+		]]>
+	</fx:Script>
+	
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:CallResponder id="getEntityResult" result="getEntityResult_resultHandler(event)"/>
+		<services:SistemaService id="sistemaService"
+								 fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
+								 showBusyCursor="true"/>
+		<s:CallResponder id="delete_methodResult"/>
 	</fx:Declarations>
-</s:Group>
+	<s:BorderContainer x="853" y="10" width="93" height="457">
+		<s:Button id="btNovo" x="10" y="10" label="Novo" click="btNovo_clickHandler(event)"
+				  enabled="{controleEnable}"/>
+		<s:Button id="btAlterar" x="10" y="39" label="Alterar" click="btAlterar_clickHandler(event)"
+				  enabled="{controleEnable}"/>
+		<s:Button id="btSalvar" x="10" y="88" label="Salvar" enabled="{!controleEnable}"/>
+		<s:Button id="btCancelar" x="10" y="117" label="Cancelar"
+				  click="btCancelar_clickHandler(event)" enabled="{!controleEnable}"/>
+		<s:Button id="btApagar" x="11" y="233" label="Apagar" click="btApagar_clickHandler(event)"
+				  enabled="{controleEnable}"/>
+		<s:Button id="btFechar" x="10" y="424" label="Fechar" click="btFechar_clickHandler(event)"
+				  enabled="{controleEnable}"/>
+	</s:BorderContainer>
+	<s:BorderContainer x="10" y="10" width="835" height="457">
+		<s:Label x="10" y="10" text="Código do Sistema"/>
+		<s:Label x="10" y="60" text="Nome do Sistema"/>
+		<s:TextInput id="edtCodSistema" x="15" y="29" width="439" text="{entity.codSistema}"/>
+		<s:TextInput id="edtNome" x="15" y="80" width="439" text="{entity.nome}"/>
+	</s:BorderContainer>
+</s:TitleWindow>

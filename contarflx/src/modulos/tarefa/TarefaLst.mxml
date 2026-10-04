@@ -27,7 +27,7 @@
 			<s:TextInput id="EdtFinal" y="127" left="692" right="96"/>
 			<s:TextInput id="EdtInicio" x="394" y="127" width="290"/>
 		</s:BorderContainer>
-		<s:DataGrid left="10" right="10" bottom="10" height="406" requestedRowCount="4">
+		<s:DataGrid left="10" right="10" top="221" bottom="10" requestedRowCount="4">
 			<s:columns>
 				<s:ArrayList>
 					<s:GridColumn width="100" dataField="dataField1" headerText="Codigo"></s:GridColumn>

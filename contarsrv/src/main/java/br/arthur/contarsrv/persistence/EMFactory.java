@@ -13,7 +13,7 @@ public class EMFactory {
 			Context ctx = new InitialContext();
 			return (EntityManager) ctx.lookup("java:comp/env/Controle/EntityManager");
 		} catch (Exception e) {
-			return null;
+			throw new IllegalStateException("Falha no lookup do EntityManager (java:comp/env/Controle/EntityManager)", e);
 		}
 	}
 

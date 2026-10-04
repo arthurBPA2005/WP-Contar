@@ -5,16 +5,40 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
 			protected function btPesquisar_clickHandler(event:MouseEvent):void
 			{
-				// TODO Auto-generated method stub
+				var codigo:String = EdtCodigo.text;
+				var nome:String = EdtNome.text;
 				
+				sistemaServiceRO.getList(codigo, nome);
+			}
+			
+			protected function onGetListResult(event:ResultEvent):void
+			{
+				var listaDeSistemas:ArrayCollection = event.result as ArrayCollection;
+				
+				dgAgente.dataProvider = listaDeSistemas;
+			}
+			
+			protected function onFaultHandler(event:FaultEvent):void
+			{
+				Alert.show("Ocorreu um erro ao comunicar com o servidor: " + event.fault.faultString, "Erro");
 			}
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:RemoteObject id="sistemaServiceRO" destination="sistemaService"
+						fault="onFaultHandler(event)">
+			
+			<s:method name="getList" result="onGetListResult(event)"/>
+			
+		</s:RemoteObject>
 	</fx:Declarations>
 	<s:Panel x="0" y="0" width="100%" height="100%" title="Lista de Sistemas">
 		<s:BorderContainer left="10" right="10" top="23" height="96">
@@ -27,7 +51,7 @@
 			<s:Label x="118" y="10" fontWeight="bold" text="Status"/>
 			<s:TextInput id="EdtStatus" x="118" y="30" width="120"/>
 		</s:BorderContainer>
-		<s:DataGrid left="10" right="10" top="160" bottom="10" requestedRowCount="4">
+		<s:DataGrid id="dgAgente" left="10" right="10" top="160" bottom="10" requestedRowCount="4">
 			<s:columns>
 				<s:ArrayList>
 					<s:GridColumn width="100" dataField="dataField1" headerText="Codigo"></s:GridColumn>
