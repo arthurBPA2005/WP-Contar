@@ -32,6 +32,7 @@
 				novo = true;
 				controleEnable = false;
 				entity = new Sistema();
+				ativa_Edt();
 			}
 			
 			
@@ -49,6 +50,7 @@
 			{
 				novo = false;
 				controleEnable = false;
+				ativa_Edt();
 			}
 			
 			public function preencheTela(codSistema:String):void
@@ -70,6 +72,12 @@
 			protected function delete_method(arg0:String):void
 			{
 				delete_methodResult.token = sistemaService.delete_method(arg0);
+			}
+			
+			protected function ativa_Edt():void
+			{
+				edtCodSistema.editable = true;
+				edtNome.editable = true;
 			}
 			
 		]]>
@@ -98,7 +106,8 @@
 	<s:BorderContainer x="10" y="10" width="835" height="457">
 		<s:Label x="10" y="10" text="Código do Sistema"/>
 		<s:Label x="10" y="60" text="Nome do Sistema"/>
-		<s:TextInput id="edtCodSistema" x="15" y="29" width="439" text="{entity.codSistema}"/>
-		<s:TextInput id="edtNome" x="15" y="80" width="439" text="{entity.nome}"/>
+		<s:TextInput id="edtCodSistema" x="15" y="29" width="439" editable="false"
+					 text="{entity.codSistema}"/>
+		<s:TextInput id="edtNome" x="15" y="80" width="439" editable="false" text="{entity.nome}"/>
 	</s:BorderContainer>
 </s:TitleWindow>

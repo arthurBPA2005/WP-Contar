@@ -9,7 +9,6 @@
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
-			import mx.events.FlexEvent;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.ResultEvent;
 			
@@ -84,8 +83,8 @@
 			<s:TextInput id="EdtCodigo" x="10" y="30"/>
 			<s:TextInput id="EdtNome" y="30" left="146" right="10"/>
 		</s:BorderContainer>
-		<s:DataGrid id="dgSistema" left="10" right="10" top="159" bottom="30"
-					doubleClickEnabled="true" dataProvider="{lista}"
+		<s:DataGrid id="dgSistema" left="10" right="10" top="159" bottom="30" dataProvider="{lista}"
+					doubleClickEnabled="true"
 					gridDoubleClick="dgSistema_gridDoubleClickHandler(event)">
 			<s:columns>
 				<s:ArrayList>
