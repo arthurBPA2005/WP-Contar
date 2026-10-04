@@ -1,5 +1,9 @@
 # Build do Maven / Eclipse (m2e-wtp)
 contarsrv/target/
+target/
+*.class
+*.war
+*.jar
 
 # Saida do Flash Builder (compila direto no webapp do backend)
 contarsrv/src/main/webapp/*.swf
@@ -9,3 +13,27 @@ contarsrv/src/main/webapp/swfobject.js
 contarsrv/src/main/webapp/history/
 contarflx/bin-debug/
 contarflx/bin-release/
+contarflx/bin/
+
+# Eclipse: metadados do workspace e caches locais
+# (.project, .classpath e .settings/ continuam versionados: o Flash Builder e o m2e-wtp precisam deles)
+.metadata/
+.recommenders/
+*.launch
+**/.settings/org.eclipse.jpt.entitygen.*
+
+# IntelliJ / VS Code
+.idea/
+*.iml
+.vscode/
+
+# Logs e temporarios
+*.log
+*.tmp
+*.bak
+*~
+
+# Sistema operacional
+Thumbs.db
+desktop.ini
+.DS_Store
