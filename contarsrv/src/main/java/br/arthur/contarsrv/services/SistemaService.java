@@ -25,6 +25,12 @@ public class SistemaService {
 
 		pb.novo(codSistema, nome);
 	}
+	
+	public void alterar(String codSistema, String nome) {
+		SistemBusiness pb = new SistemBusiness();
+
+		pb.alterar(codSistema, nome);
+	}
 
 	public void delete(String codSistema) {
 		SistemBusiness pb = new SistemBusiness();

@@ -3,11 +3,13 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:services="services.*"
-			   width="958" height="510" title="Cadastro de sistema" creationPolicy="all">
+			   width="958" height="510" creationPolicy="all" fontStyle="normal" fontWeight="bold"
+			   title="Cadastro de sistema">
 	
 	<fx:Script>
 		<![CDATA[
 			import mx.controls.Alert;
+			import mx.events.CloseEvent;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -60,9 +62,23 @@
 			
 			protected function btApagar_clickHandler(event:MouseEvent):void
 			{
-				delete_method(edtCodSistema.text);
+				Alert.yesLabel = "Sim";
+				Alert.noLabel = "Não";
+				Alert.show("Tem certeza?", "Opa!", 1|2, null, function(e: CloseEvent):void
+				{
+					if ( e.detail == Alert.YES )	
+					{
+						delete_methodResult.token = sistemaService.delete_method(edtCodSistema.text);
+					}
+				});
+			}
+			
+			protected function delete_methodResult_resultHandler(event:ResultEvent):void
+			{
+				Alert.show("Apagado com sucesso");				
 				PopUpManager.removePopUp(this);
 			}
+
 			
 			protected function btSalvar_clickHandler(event:MouseEvent):void
 			{
@@ -70,23 +86,22 @@
 				var nome : String = edtNome.text;
 				
 				if(novo){
-					novo2(codSistema, nome);
+					novoResult.token = sistemaService.novo(codSistema, nome);
 					edtCodSistema.editable = false;
 					edtNome.editable = false;
 					controleEnable = true;
 				}else{
 					
+					alterarResult.token = sistemaService.alterar(codSistema, nome);
+					edtCodSistema.editable = false;
+					edtNome.editable = false;
+					controleEnable = true;
 				}
 			}
 			
 			public function preencheTela(codSistema:String):void
 			{
 				getEntityResult.token = sistemaService.getEntity(codSistema);
-			}
-			
-			protected function delete_method(arg0:String):void
-			{
-				delete_methodResult.token = sistemaService.delete_method(arg0);
 			}
 			
 			protected function ativa_Edt():void
@@ -99,13 +114,7 @@
 			{
 				entity = event.result as Sistema;
 			}
-			
-			
-			protected function novo2(arg0:String, arg1:String):void
-			{
-				novoResult.token = sistemaService.novo(arg0, arg1);
-			}
-			
+					
 		]]>
 	</fx:Script>
 	
@@ -114,8 +123,9 @@
 		<services:SistemaService id="sistemaService"
 								 fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
 								 showBusyCursor="true"/>
-		<s:CallResponder id="delete_methodResult"/>
+		<s:CallResponder id="delete_methodResult" result="delete_methodResult_resultHandler(event)"/>
 		<s:CallResponder id="novoResult"/>
+		<s:CallResponder id="alterarResult"/>
 	</fx:Declarations>
 	<s:BorderContainer x="853" y="10" width="93" height="457">
 		<s:Button id="btNovo" x="10" y="10" label="Novo" click="btNovo_clickHandler(event)"
@@ -132,8 +142,8 @@
 				  enabled="{controleEnable}"/>
 	</s:BorderContainer>
 	<s:BorderContainer x="10" y="10" width="835" height="457">
-		<s:Label x="10" y="10" text="Código do Sistema"/>
-		<s:Label x="10" y="60" text="Nome do Sistema"/>
+		<s:Label x="10" y="10" fontStyle="italic" fontWeight="bold" text="Código do Sistema"/>
+		<s:Label x="10" y="60" fontStyle="italic" fontWeight="bold" text="Nome do Sistema"/>
 		<s:TextInput id="edtCodSistema" x="15" y="29" width="439" editable="false"
 					 text="{entity.codSistema}"/>
 		<s:TextInput id="edtNome" x="15" y="80" width="439" editable="false" text="{entity.nome}"/>

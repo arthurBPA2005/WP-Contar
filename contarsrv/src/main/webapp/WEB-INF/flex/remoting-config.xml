@@ -16,5 +16,11 @@
     <properties>
         <source>br.arthur.contarsrv.services.SistemaService</source>
     </properties>
-</destination>
+    </destination>
+    
+    <destination id="agenteService">
+    <properties>
+        <source>br.arthur.contarsrv.services.AgenteService</source>
+    </properties>
+	</destination>
 </service>

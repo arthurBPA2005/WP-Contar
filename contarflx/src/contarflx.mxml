@@ -9,12 +9,15 @@
 			import mx.controls.Alert;
 			import mx.managers.PopUpManager;
 			
+			import valueObjects.Agente;
 			import valueObjects.Sistema;
 			
 			// POG
 			private var alert :Alert;
 			private var popUpManager :PopUpManager;
 			private var sistema :Sistema;
+			private var agente :Agente;
+
 			
 			protected function btHome_clickHandler(event:MouseEvent):void
 			{

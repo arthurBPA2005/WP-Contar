@@ -74,7 +74,8 @@
 		
 	</fx:Declarations>
 	
-	<s:Panel x="0" y="0" width="100%" height="100%" title="Lista de Sistemas">
+	<s:Panel x="0" y="0" width="100%" height="100%" fontStyle="normal" fontWeight="bold"
+			 title="Lista de Sistemas">
 		<s:BorderContainer left="10" right="10" top="23" height="99">
 			<s:Button id="btPesquisar" right="10" bottom="10" height="21" label="Pesquisar"
 					  click="btPesquisar_clickHandler(event)"/>

@@ -19,6 +19,38 @@
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">BlazeDS</item>
     </annotation>
+    <function name="novo" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+    </function>
+    <function name="delete_method" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+      </annotation>
+      <annotation name="ActionScriptGeneration">
+        <item name="remoteFunction">delete</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+    </function>
+    <function name="alterar" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+    </function>
     <function name="getEntity" return-type="Sistema">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
@@ -40,29 +72,6 @@
       <parameter name="arg0" type="string"/>
       <parameter name="arg1" type="string"/>
     </function>
-    <function name="delete_method" return-type="void">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">string</item>
-        <item name="returnType">void</item>
-      </annotation>
-      <annotation name="ActionScriptGeneration">
-        <item name="remoteFunction">delete</item>
-      </annotation>
-      <parameter name="arg0" type="string"/>
-    </function>
-    <function name="novo" return-type="void">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">string,string</item>
-      </annotation>
-      <parameter name="arg0" type="string"/>
-      <parameter name="arg1" type="string"/>
-    </function>
   </service>
   <entity name="Sistema">
     <annotation name="EntityProperties">
@@ -80,5 +89,57 @@
     </annotation>
     <property name="nome" type="string"/>
     <property name="codSistema" type="string"/>
+  </entity>
+  <service name="AgenteService">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">services</item>
+      <item name="Destination">agenteService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
+      <item name="contextRoot">/contarsrv</item>
+      <item name="rootUrl">http://localhost:8080/contarsrv</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080/contarsrv/messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">BlazeDS</item>
+    </annotation>
+    <function name="getList" return-type="Agente[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,string,string</item>
+        <item name="returnType">Agente</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">codAgente,nomeAgente,status</item>
+      </annotation>
+      <parameter name="arg0" type="integer"/>
+      <parameter name="arg1" type="string"/>
+      <parameter name="arg2" type="string"/>
+    </function>
+  </service>
+  <entity name="Agente">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Agente</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">br.arthur.contarsrv.domain.Agente</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">AgenteService,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="getList">
+      <item name="propertySpecifier">codAgente,nomeAgente,status</item>
+    </annotation>
+    <property name="codAgente" type="integer"/>
+    <property name="nomeAgente" type="string"/>
+    <property name="status" type="boolean"/>
   </entity>
 </model>

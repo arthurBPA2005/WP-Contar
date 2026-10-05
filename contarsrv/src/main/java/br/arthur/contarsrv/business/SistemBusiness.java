@@ -26,7 +26,7 @@ public class SistemBusiness {
 			parametros.put("nome", "%" + nome.trim().toUpperCase() + "%");
 		}
 
-		condicao.append(" order by obj.codSistema");
+		condicao.append(" order by cast(obj.codSistema as integer)");
 
 		return dao.getListByCond(condicao.toString(), parametros);
 	}
@@ -64,9 +64,19 @@ public class SistemBusiness {
 		dao.create(sistema);
 	}
 	
+	public void alterar(String codSistema, String nome) {
+		
+		Sistema sistema = new Sistema();
+		sistema.setCodSistema(codSistema);
+		sistema.setNome(nome.trim());
+		
+		dao.update(sistema);
+	}
+	
 	public void delete(String codSistema) {
 		
 		dao.delete(codSistema);
 	}
+
 
 }
