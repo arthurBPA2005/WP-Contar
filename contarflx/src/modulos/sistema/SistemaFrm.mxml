@@ -106,7 +106,6 @@
 			
 			protected function ativa_Edt():void
 			{
-				edtCodSistema.editable = true;
 				edtNome.editable = true;
 			}
 			
