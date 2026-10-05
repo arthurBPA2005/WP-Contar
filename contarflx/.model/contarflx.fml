@@ -53,6 +53,16 @@
       </annotation>
       <parameter name="arg0" type="string"/>
     </function>
+    <function name="novo" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+    </function>
   </service>
   <entity name="Sistema">
     <annotation name="EntityProperties">

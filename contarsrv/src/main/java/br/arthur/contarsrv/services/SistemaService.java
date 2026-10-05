@@ -19,10 +19,16 @@ public class SistemaService {
 
 		return pb.getEntity(codSistema);
 	}
-	
+
+	public void novo(String codSistema, String nome) {
+		SistemBusiness pb = new SistemBusiness();
+
+		pb.novo(codSistema, nome);
+	}
+
 	public void delete(String codSistema) {
 		SistemBusiness pb = new SistemBusiness();
-		
+
 		pb.delete(codSistema);
 	}
 

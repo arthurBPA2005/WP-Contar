@@ -20,7 +20,8 @@
 			[Bindable]
 			private var entity :Sistema = null;
 			
-			private var novo :Boolean = true;
+			private var novo :Boolean = false;
+			
 			
 			protected function btFechar_clickHandler(event:MouseEvent):void
 			{
@@ -35,6 +36,13 @@
 				ativa_Edt();
 			}
 			
+			public function btAlterar_clickHandler(event:MouseEvent):void
+			{
+				novo = false;
+				controleEnable = false;
+				ativa_Edt();
+			}
+			
 			
 			protected function btCancelar_clickHandler(event:MouseEvent):void
 			{
@@ -44,30 +52,37 @@
 					controleEnable = true;
 					preencheTela(entity.codSistema);
 				}
+				edtCodSistema.editable = false;
+				edtNome.editable = false;
 			}
 			
-			public function btAlterar_clickHandler(event:MouseEvent):void
+			
+			
+			protected function btApagar_clickHandler(event:MouseEvent):void
 			{
-				novo = false;
-				controleEnable = false;
-				ativa_Edt();
+				delete_method(edtCodSistema.text);
+				PopUpManager.removePopUp(this);
+			}
+			
+			protected function btSalvar_clickHandler(event:MouseEvent):void
+			{
+				var codSistema : String = edtCodSistema.text;
+				var nome : String = edtNome.text;
+				
+				if(novo){
+					novo2(codSistema, nome);
+					edtCodSistema.editable = false;
+					edtNome.editable = false;
+					controleEnable = true;
+				}else{
+					
+				}
 			}
 			
 			public function preencheTela(codSistema:String):void
 			{
 				getEntityResult.token = sistemaService.getEntity(codSistema);
 			}
-			
-			protected function getEntityResult_resultHandler(event:ResultEvent):void
-			{
-				entity = event.result as Sistema;
-			}
-			
-			protected function btApagar_clickHandler(event:MouseEvent):void
-			{
-				delete_method(edtCodSistema.text);
-			}
-			
 			
 			protected function delete_method(arg0:String):void
 			{
@@ -80,6 +95,17 @@
 				edtNome.editable = true;
 			}
 			
+			protected function getEntityResult_resultHandler(event:ResultEvent):void
+			{
+				entity = event.result as Sistema;
+			}
+			
+			
+			protected function novo2(arg0:String, arg1:String):void
+			{
+				novoResult.token = sistemaService.novo(arg0, arg1);
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -89,13 +115,15 @@
 								 fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
 								 showBusyCursor="true"/>
 		<s:CallResponder id="delete_methodResult"/>
+		<s:CallResponder id="novoResult"/>
 	</fx:Declarations>
 	<s:BorderContainer x="853" y="10" width="93" height="457">
 		<s:Button id="btNovo" x="10" y="10" label="Novo" click="btNovo_clickHandler(event)"
 				  enabled="{controleEnable}"/>
 		<s:Button id="btAlterar" x="10" y="39" label="Alterar" click="btAlterar_clickHandler(event)"
 				  enabled="{controleEnable}"/>
-		<s:Button id="btSalvar" x="10" y="88" label="Salvar" enabled="{!controleEnable}"/>
+		<s:Button id="btSalvar" x="10" y="88" label="Salvar" click="btSalvar_clickHandler(event)"
+				  enabled="{!controleEnable}"/>
 		<s:Button id="btCancelar" x="10" y="117" label="Cancelar"
 				  click="btCancelar_clickHandler(event)" enabled="{!controleEnable}"/>
 		<s:Button id="btApagar" x="11" y="233" label="Apagar" click="btApagar_clickHandler(event)"

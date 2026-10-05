@@ -41,6 +41,29 @@ public class SistemBusiness {
 	    return dao.getEntity(codSistema.trim());
 	}
 	
+	public void novo(String codSistema, String nome) {
+
+		if (codSistema == null || codSistema.isBlank()) {
+			throw new IllegalArgumentException("Informe o código do sistema.");
+		}
+
+		if (nome == null || nome.isBlank()) {
+			throw new IllegalArgumentException("Informe o nome do sistema.");
+		}
+
+		codSistema = codSistema.trim();
+
+		if (dao.getEntity(codSistema) != null) {
+			throw new IllegalArgumentException("Já existe um sistema com o código " + codSistema + ".");
+		}
+
+		Sistema sistema = new Sistema();
+		sistema.setCodSistema(codSistema);
+		sistema.setNome(nome.trim());
+
+		dao.create(sistema);
+	}
+	
 	public void delete(String codSistema) {
 		
 		dao.delete(codSistema);
