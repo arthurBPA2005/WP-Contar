@@ -120,6 +120,60 @@
       <parameter name="arg1" type="string"/>
       <parameter name="arg2" type="string"/>
     </function>
+    <function name="novo" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,boolean</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="boolean"/>
+    </function>
+    <function name="delete_method" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+      </annotation>
+      <annotation name="ActionScriptGeneration">
+        <item name="remoteFunction">delete</item>
+      </annotation>
+      <parameter name="arg0" type="integer"/>
+    </function>
+    <function name="alterar" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,string,boolean</item>
+      </annotation>
+      <parameter name="arg0" type="integer"/>
+      <parameter name="arg1" type="string"/>
+      <parameter name="arg2" type="boolean"/>
+    </function>
+    <function name="getEntity" return-type="Agente">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">Agente</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">codAgente,nomeAgente,status</item>
+      </annotation>
+      <parameter name="arg0" type="integer"/>
+    </function>
+    <function name="getProximoCodigo" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">integer</item>
+      </annotation>
+    </function>
   </service>
   <entity name="Agente">
     <annotation name="EntityProperties">
@@ -136,6 +190,9 @@
       <item name="Package">valueObjects</item>
     </annotation>
     <annotation name="getList">
+      <item name="propertySpecifier">codAgente,nomeAgente,status</item>
+    </annotation>
+    <annotation name="getEntity">
       <item name="propertySpecifier">codAgente,nomeAgente,status</item>
     </annotation>
     <property name="codAgente" type="integer"/>

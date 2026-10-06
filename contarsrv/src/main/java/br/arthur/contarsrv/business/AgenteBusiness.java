@@ -11,9 +11,6 @@ public class AgenteBusiness {
 
 	private final AgenteDao dao = new AgenteDao();
 
-	/**
-	 * status: "A" = ativos, "I" = inativos, vazio/null = todos
-	 */
 	public List<Agente> getList(Integer codAgente, String nomeAgente, String status) {
 		StringBuilder condicao = new StringBuilder(" 1 = 1 ");
 		Map<String, Object> parametros = new HashMap<>();
@@ -39,6 +36,61 @@ public class AgenteBusiness {
 		condicao.append(" order by obj.codAgente");
 
 		return dao.getListByCond(condicao.toString(), parametros);
+	}
+
+	public Agente getEntity(Integer codAgente) {
+
+		if (codAgente == null || codAgente == 0) {
+			return null;
+		}
+
+		return dao.getEntity(codAgente);
+	}
+
+	/**
+	 * Previsao do proximo codigo (maior codigo + 1), so para exibir na tela.
+	 * Quem gera o codigo de verdade e o banco (IDENTITY) no momento do insert.
+	 */
+	public Integer getProximoCodigo() {
+
+		return dao.getNextCod("codAgente");
+	}
+
+	public void novo(String nome, boolean status) {
+
+		// o codigo do agente e gerado pelo banco (IDENTITY)
+		if (nome == null || nome.isBlank()) {
+			throw new IllegalArgumentException("Informe o nome do agente.");
+		}
+
+		Agente agente = new Agente();
+		agente.setNomeAgente(nome.trim());
+		agente.setStatus(status);
+
+		dao.create(agente);
+	}
+
+	public void alterar(Integer codAgente, String nome, boolean status) {
+
+		if (codAgente == null || codAgente == 0) {
+			throw new IllegalArgumentException("Informe o código do agente.");
+		}
+
+		if (nome == null || nome.isBlank()) {
+			throw new IllegalArgumentException("Informe o nome do agente.");
+		}
+
+		Agente agente = new Agente();
+		agente.setCodAgente(codAgente);
+		agente.setNomeAgente(nome.trim());
+		agente.setStatus(status);
+
+		dao.update(agente);
+	}
+
+	public void delete(Integer codAgente) {
+
+		dao.delete(codAgente);
 	}
 
 }

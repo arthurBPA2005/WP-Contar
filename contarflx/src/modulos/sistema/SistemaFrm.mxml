@@ -35,14 +35,14 @@
 				novo = true;
 				controleEnable = false;
 				entity = new Sistema();
-				ativa_Edt();
+				edtNome.editable = true;
 			}
 			
 			public function btAlterar_clickHandler(event:MouseEvent):void
 			{
 				novo = false;
 				controleEnable = false;
-				ativa_Edt();
+				edtNome.editable = true;
 			}
 			
 			
@@ -102,11 +102,6 @@
 			public function preencheTela(codSistema:String):void
 			{
 				getEntityResult.token = sistemaService.getEntity(codSistema);
-			}
-			
-			protected function ativa_Edt():void
-			{
-				edtNome.editable = true;
 			}
 			
 			protected function getEntityResult_resultHandler(event:ResultEvent):void

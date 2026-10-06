@@ -9,9 +9,13 @@
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
 			import mx.rpc.events.ResultEvent;
-
+			
+			import spark.events.GridEvent;
 			import spark.components.gridClasses.GridColumn;
+			
+			import valueObjects.Agente;
 
 			[Bindable]
 			private var lista :ArrayCollection = new ArrayCollection;
@@ -33,6 +37,41 @@
 				return item.status ? "Ativo" : "Inativo";
 			}
 
+			protected function btCriar_clickHandler(event:MouseEvent):void
+			{
+				var ui :AgenteFrm = new AgenteFrm();
+				
+				PopUpManager.addPopUp(ui, this, true);
+				PopUpManager.centerPopUp(ui);
+				ui.closeButton.visible = false;
+				ui.btNovo_clickHandler(null);
+				
+				ui.addEventListener(Event.REMOVED_FROM_STAGE, function (event :Event) :void 
+				{
+					btPesquisar_clickHandler(null);
+				});
+			}
+			
+			protected function dgAgente_gridDoubleClickHandler(event:GridEvent):void
+			{
+				if ( dgAgente.selectedItem != null) {
+					
+					
+					var obj :Agente = dgAgente.selectedItem as Agente;
+					
+					var ui :AgenteFrm = new AgenteFrm();
+					PopUpManager.addPopUp(ui, this, true);
+					PopUpManager.centerPopUp(ui);
+					ui.closeButton.visible = false;
+					ui.preencheTela(obj.codAgente);
+					
+					ui.addEventListener(Event.REMOVED_FROM_STAGE, function (event :Event) :void 
+					{
+						btPesquisar_clickHandler(null);
+					});
+				}
+			}
+			
 		]]>
 	</fx:Script>
 
@@ -63,7 +102,9 @@
 				</s:dataProvider>
 			</s:DropDownList>
 		</s:BorderContainer>
-		<s:DataGrid id="dgAgente" left="10" right="10" top="160" bottom="30" dataProvider="{lista}">
+		<s:DataGrid id="dgAgente" left="10" right="10" top="160" bottom="30" dataProvider="{lista}"
+					doubleClickEnabled="true"
+					gridDoubleClick="dgAgente_gridDoubleClickHandler(event)">
 			<s:columns>
 				<s:ArrayList>
 					<s:GridColumn width="100" dataField="codAgente" headerText="Código"></s:GridColumn>
@@ -73,7 +114,8 @@
 				</s:ArrayList>
 			</s:columns>
 		</s:DataGrid>
-		<s:Button id="btCriar" y="131" right="10" width="50" label="+"/>
+		<s:Button id="btCriar" y="131" right="10" width="50" label="+"
+				  click="btCriar_clickHandler(event)"/>
 		<s:Label y="140" left="10" fontSize="12" fontStyle="italic" fontWeight="bold" text="Lista"/>
 		<s:Label x="11" y="6" fontSize="12" fontStyle="italic" fontWeight="bold" text="Pesquisar"/>
 		<s:Label x="10" bottom="10" fontStyle="italic" fontWeight="bold"

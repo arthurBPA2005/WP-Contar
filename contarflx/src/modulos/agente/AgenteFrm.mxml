@@ -2,8 +2,170 @@
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   width="958" height="510" title="Cadastro de agente">
+			   xmlns:services="services.*"
+			   width="958" height="510" creationPolicy="all" fontStyle="normal" fontWeight="bold"
+			   title="Cadastro de agente">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.ResultEvent;
+			
+			import valueObjects.Agente;
+			
+			[Bindable]
+			private var controleEnable :Boolean = true;
+			
+			[Bindable]
+			private var entity :Agente = null;
+			
+			private var novo :Boolean = false;
+			
+			protected function btFechar_clickHandler(event:MouseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+			public function btNovo_clickHandler(event:MouseEvent):void
+			{
+				novo = true;
+				controleEnable = false;
+				entity = new Agente();
+				comboStatus.selectedIndex = 0;
+				edtNome.editable = true;
+				comboStatus.enabled = true;
+
+				// mostra a previsao do proximo codigo no lugar do zero
+				getProximoCodigoResult.token = agenteService.getProximoCodigo();
+			}
+
+			protected function getProximoCodigoResult_resultHandler(event:ResultEvent):void
+			{
+				edtCodAgente.text = String(event.result);
+			}
+			
+			protected function btAlterar_clickHandler(event:MouseEvent):void
+			{
+				novo = false;
+				controleEnable = false;
+				edtNome.editable = true;
+				comboStatus.enabled = true;
+			}
+			
+			protected function btCancelar_clickHandler(event:MouseEvent):void
+			{
+				if (novo) {
+					PopUpManager.removePopUp(this);
+				} else {
+					controleEnable = true;
+					preencheTela(entity.codAgente);
+				}
+				edtCodAgente.editable = false;
+				edtNome.editable = false;
+				comboStatus.enabled = false;
+			}
+			
+			
+			protected function btApagar_clickHandler(event:MouseEvent):void
+			{
+				Alert.yesLabel = "Sim";
+				Alert.noLabel = "Não";
+				Alert.show("Tem certeza?", "Opa!", 1|2, null, function(e: CloseEvent):void
+				{
+					if ( e.detail == Alert.YES )	
+					{
+						delete_methodResult.token = agenteService.delete_method(int(edtCodAgente.text));
+					}
+				});
+			}
+			
+			protected function delete_methodResult_resultHandler(event:ResultEvent):void
+			{
+				Alert.show("Apagado com sucesso");				
+				PopUpManager.removePopUp(this);
+			}
+			
+			protected function btSalvar_clickHandler(event:MouseEvent):void
+			{
+				var codAgente : int = int(edtCodAgente.text);
+				var nome : String = edtNome.text;
+				var status : Boolean = comboStatus.selectedItem.data == "A";
+
+				if(novo){
+					// o codigo e gerado pelo banco
+					novoResult.token = agenteService.novo(nome, status);
+					edtCodAgente.editable = false;
+					edtNome.editable = false;
+					comboStatus.enabled = false;
+					controleEnable = true;
+				}else{
+					
+					alterarResult.token = agenteService.alterar(codAgente, nome, status);
+					edtCodAgente.editable = false;
+					edtNome.editable = false;
+					comboStatus.enabled = false;
+					controleEnable = true;
+				}
+			}
+			
+			public function preencheTela(codAgente:Number):void
+			{
+				getEntityResult.token = agenteService.getEntity(codAgente);
+			}
+			
+			protected function getEntityResult_resultHandler(event:ResultEvent):void
+			{
+				entity = event.result as Agente;
+				comboStatus.selectedIndex = entity.status ? 0 : 1;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
 	<fx:Declarations>
+		<s:CallResponder id="getEntityResult" result="getEntityResult_resultHandler(event)"/>
+		<s:CallResponder id="getProximoCodigoResult" result="getProximoCodigoResult_resultHandler(event)"/>
+		<services:AgenteService id="agenteService"
+								fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
+								showBusyCursor="true"/>
+		<s:CallResponder id="delete_methodResult" result="delete_methodResult_resultHandler(event)"/>
+		<s:CallResponder id="novoResult"/>
+		<s:CallResponder id="alterarResult"/>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	<s:BorderContainer x="853" y="10" width="93" height="457">
+		<s:Button id="btNovo" x="10" y="10" label="Novo" click="btNovo_clickHandler(event)"
+				  enabled="{controleEnable}"/>
+		<s:Button id="btAlterar" x="10" y="39" label="Alterar" click="btAlterar_clickHandler(event)"
+				  enabled="{controleEnable}"/>
+		<s:Button id="btSalvar" x="10" y="88" label="Salvar" click="btSalvar_clickHandler(event)"
+				  enabled="{!controleEnable}"/>
+		<s:Button id="btCancelar" x="10" y="117" label="Cancelar"
+				  click="btCancelar_clickHandler(event)" enabled="{!controleEnable}"/>
+		<s:Button id="btApagar" x="11" y="233" label="Apagar" click="btApagar_clickHandler(event)"
+				  enabled="{controleEnable}"/>
+		<s:Button id="btFechar" x="10" y="424" label="Fechar" click="btFechar_clickHandler(event)"
+				  enabled="{controleEnable}"/>
+	</s:BorderContainer>
+	<s:BorderContainer x="10" y="10" width="835" height="457">
+		<s:Label x="10" y="10" fontStyle="italic" fontWeight="bold" text="Código do Agente"/>
+		<s:Label x="10" y="60" fontStyle="italic" fontWeight="bold" text="Nome do Agente"/>
+		<s:TextInput id="edtCodAgente" x="15" y="29" width="439" editable="false"
+					 text="{entity.codAgente}"/>
+		<s:TextInput id="edtNome" x="15" y="80" width="439" editable="false"
+					 text="{entity.nomeAgente}"/>
+		<s:DropDownList id="comboStatus" left="15" top="130" width="119" enabled="false"
+						selectedIndex="0">
+			<s:dataProvider>
+				<s:ArrayList>
+					<fx:Object label="Ativo" data="A"/>
+					<fx:Object label="Inativo" data="I"/>
+				</s:ArrayList>
+			</s:dataProvider>
+		</s:DropDownList>
+		<s:Label x="10" y="110" fontStyle="italic" fontWeight="bold" text="Status"/>
+	</s:BorderContainer>
 </s:TitleWindow>
