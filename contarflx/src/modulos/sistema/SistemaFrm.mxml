@@ -35,6 +35,7 @@
 				novo = true;
 				controleEnable = false;
 				entity = new Sistema();
+				edtCodSistema.editable = true;
 				edtNome.editable = true;
 			}
 			
@@ -129,9 +130,9 @@
 		<s:Button id="btSalvar" x="10" y="88" label="Salvar" click="btSalvar_clickHandler(event)"
 				  enabled="{!controleEnable}"/>
 		<s:Button id="btCancelar" x="10" y="117" label="Cancelar"
-				  click="btCancelar_clickHandler(event)" enabled="{!controleEnable}"/>
+				  click="btCancelar_clickHandler(event)" color="#AA0000" enabled="{!controleEnable}"/>
 		<s:Button id="btApagar" x="11" y="233" label="Apagar" click="btApagar_clickHandler(event)"
-				  enabled="{controleEnable}"/>
+				  color="#AA0000" enabled="{controleEnable}"/>
 		<s:Button id="btFechar" x="10" y="424" label="Fechar" click="btFechar_clickHandler(event)"
 				  enabled="{controleEnable}"/>
 	</s:BorderContainer>
