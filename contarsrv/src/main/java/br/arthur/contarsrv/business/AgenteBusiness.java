@@ -47,10 +47,7 @@ public class AgenteBusiness {
 		return dao.getEntity(codAgente);
 	}
 
-	/**
-	 * Previsao do proximo codigo (maior codigo + 1), so para exibir na tela.
-	 * Quem gera o codigo de verdade e o banco (IDENTITY) no momento do insert.
-	 */
+	
 	public Integer getProximoCodigo() {
 
 		return dao.getNextCod("codAgente");
@@ -58,7 +55,6 @@ public class AgenteBusiness {
 
 	public void novo(String nome, boolean status) {
 
-		// o codigo do agente e gerado pelo banco (IDENTITY)
 		if (nome == null || nome.isBlank()) {
 			throw new IllegalArgumentException("Informe o nome do agente.");
 		}
