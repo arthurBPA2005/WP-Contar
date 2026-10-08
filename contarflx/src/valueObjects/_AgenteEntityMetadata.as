@@ -20,14 +20,14 @@ internal class _AgenteEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("codAgente", "nomeAgente", "status");
+    model_internal static var allProperties:Array = new Array("codAgente", "status", "nomeAgente");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("codAgente", "nomeAgente", "status");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("codAgente", "status", "nomeAgente");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("codAgente", "nomeAgente", "status");
+    model_internal static var dataProperties:Array = new Array("codAgente", "status", "nomeAgente");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("codAgente", "nomeAgente", "status");
+    model_internal static var nonDerivedProperties:Array = new Array("codAgente", "status", "nomeAgente");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -48,8 +48,8 @@ internal class _AgenteEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
             // dependents map
             model_internal::dependentsOnMap = new Object();
             model_internal::dependentsOnMap["codAgente"] = new Array();
-            model_internal::dependentsOnMap["nomeAgente"] = new Array();
             model_internal::dependentsOnMap["status"] = new Array();
+            model_internal::dependentsOnMap["nomeAgente"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -58,8 +58,8 @@ internal class _AgenteEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
         // Property type Map
         model_internal::propertyTypeMap = new Object();
         model_internal::propertyTypeMap["codAgente"] = "int";
-        model_internal::propertyTypeMap["nomeAgente"] = "String";
         model_internal::propertyTypeMap["status"] = "Boolean";
+        model_internal::propertyTypeMap["nomeAgente"] = "String";
 
         model_internal::_instance = value;
     }
@@ -295,13 +295,13 @@ internal class _AgenteEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
     }
 
     [Bindable(event="propertyChange")]
-    public function get isNomeAgenteAvailable():Boolean
+    public function get isStatusAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isStatusAvailable():Boolean
+    public function get isNomeAgenteAvailable():Boolean
     {
         return true;
     }
@@ -323,13 +323,13 @@ internal class _AgenteEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
     }
 
     [Bindable(event="propertyChange")]   
-    public function get nomeAgenteStyle():com.adobe.fiber.styles.Style
+    public function get statusStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get statusStyle():com.adobe.fiber.styles.Style
+    public function get nomeAgenteStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

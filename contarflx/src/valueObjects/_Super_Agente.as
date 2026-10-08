@@ -59,8 +59,8 @@ public class _Super_Agente extends flash.events.EventDispatcher implements com.a
      * properties
      */
     private var _internal_codAgente : int;
-    private var _internal_nomeAgente : String;
     private var _internal_status : Boolean;
+    private var _internal_nomeAgente : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -91,15 +91,15 @@ public class _Super_Agente extends flash.events.EventDispatcher implements com.a
     }
 
     [Bindable(event="propertyChange")]
-    public function get nomeAgente() : String
-    {
-        return _internal_nomeAgente;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get status() : Boolean
     {
         return _internal_status;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get nomeAgente() : String
+    {
+        return _internal_nomeAgente;
     }
 
     public function clearAssociations() : void
@@ -120,16 +120,6 @@ public class _Super_Agente extends flash.events.EventDispatcher implements com.a
         }
     }
 
-    public function set nomeAgente(value:String) : void
-    {
-        var oldValue:String = _internal_nomeAgente;
-        if (oldValue !== value)
-        {
-            _internal_nomeAgente = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nomeAgente", oldValue, _internal_nomeAgente));
-        }
-    }
-
     public function set status(value:Boolean) : void
     {
         var oldValue:Boolean = _internal_status;
@@ -137,6 +127,16 @@ public class _Super_Agente extends flash.events.EventDispatcher implements com.a
         {
             _internal_status = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "status", oldValue, _internal_status));
+        }
+    }
+
+    public function set nomeAgente(value:String) : void
+    {
+        var oldValue:String = _internal_nomeAgente;
+        if (oldValue !== value)
+        {
+            _internal_nomeAgente = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nomeAgente", oldValue, _internal_nomeAgente));
         }
     }
 

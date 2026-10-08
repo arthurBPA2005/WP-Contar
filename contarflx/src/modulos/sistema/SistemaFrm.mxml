@@ -3,7 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:services="services.*"
-			   width="958" height="510" creationPolicy="all" fontStyle="normal" fontWeight="bold"
+			   width="958" height="400" creationPolicy="all" fontStyle="normal" fontWeight="bold"
 			   title="Cadastro de sistema">
 	
 	<fx:Script>
@@ -122,7 +122,7 @@
 		<s:CallResponder id="novoResult"/>
 		<s:CallResponder id="alterarResult"/>
 	</fx:Declarations>
-	<s:BorderContainer x="853" y="10" width="93" height="457">
+	<s:BorderContainer x="853" y="10" width="93" height="347">
 		<s:Button id="btNovo" x="10" y="10" label="Novo" click="btNovo_clickHandler(event)"
 				  enabled="{controleEnable}"/>
 		<s:Button id="btAlterar" x="10" y="39" label="Alterar" click="btAlterar_clickHandler(event)"
@@ -131,12 +131,12 @@
 				  enabled="{!controleEnable}"/>
 		<s:Button id="btCancelar" x="10" y="117" label="Cancelar"
 				  click="btCancelar_clickHandler(event)" color="#AA0000" enabled="{!controleEnable}"/>
-		<s:Button id="btApagar" x="11" y="233" label="Apagar" click="btApagar_clickHandler(event)"
+		<s:Button id="btApagar" x="11" y="200" label="Apagar" click="btApagar_clickHandler(event)"
 				  color="#AA0000" enabled="{controleEnable}"/>
-		<s:Button id="btFechar" x="10" y="424" label="Fechar" click="btFechar_clickHandler(event)"
+		<s:Button id="btFechar" x="11" y="314" label="Fechar" click="btFechar_clickHandler(event)"
 				  enabled="{controleEnable}"/>
 	</s:BorderContainer>
-	<s:BorderContainer x="10" y="10" width="835" height="457">
+	<s:BorderContainer x="10" y="10" width="835" height="347">
 		<s:Label x="10" y="10" fontStyle="italic" fontWeight="bold" text="Código do Sistema"/>
 		<s:Label x="10" y="60" fontStyle="italic" fontWeight="bold" text="Nome do Sistema"/>
 		<s:TextInput id="edtCodSistema" x="15" y="29" width="439" editable="false"
