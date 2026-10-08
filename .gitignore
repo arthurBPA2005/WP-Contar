@@ -1,39 +1,200 @@
-# Build do Maven / Eclipse (m2e-wtp)
-contarsrv/target/
-target/
-*.class
-*.war
-*.jar
+# =============================================================================
+# WP-Contar - .gitignore
+#   contarsrv : backend Java EE (Maven + Eclipse/m2e-wtp + WildFly)
+#   contarflx : frontend Flex (Flash Builder), compila direto no webapp do backend
+#
+# Regra geral: versiona-se o que e FONTE e CONFIGURACAO COMPARTILHADA do projeto.
+# Fica de fora: artefatos de build, caches, estado da IDE/workspace, segredos e
+# configuracao especifica da maquina (IPs, caminhos absolutos, credenciais).
+#
+# Para configs por maquina, versione um modelo "*.example" e ignore o arquivo real.
+# Lembrete: o .gitignore nao afeta arquivos ja rastreados -> use `git rm --cached`.
+# =============================================================================
 
-# Saida do Flash Builder (compila direto no webapp do backend)
+
+# -----------------------------------------------------------------------------
+# Configuracao local por maquina (NAO versionar)
+# -----------------------------------------------------------------------------
+# Flash Builder: guarda serverRootURL (localhost / IP da rede) e serverRoot.
+# Modelo versionado em contarflx/.flexProperties.example
+contarflx/.flexProperties
+
+# Convencoes genericas de override local
+*.local
+*.local.*
+local.properties
+*-local.properties
+*-local.xml
+!*.example
+
+
+# -----------------------------------------------------------------------------
+# Segredos e credenciais
+# -----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+*.crt
+*.cer
+credentials*
+secrets*
+id_rsa*
+id_ed25519*
+
+
+# -----------------------------------------------------------------------------
+# Maven / Java
+# -----------------------------------------------------------------------------
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.rar
+hs_err_pid*
+replay_pid*
+
+
+# -----------------------------------------------------------------------------
+# Flex / Flash Builder
+# -----------------------------------------------------------------------------
+# Pastas de saida padrao
+bin/
+bin-debug/
+bin-release/
+.flexLibProperties.bak
+
+# Saida que o Flash Builder grava dentro do webapp do backend
+# (outputFolderLocation = contarsrv/src/main/webapp)
 contarsrv/src/main/webapp/*.swf
-contarsrv/src/main/webapp/modulos/
-contarsrv/src/main/webapp/contarflx.html
+contarsrv/src/main/webapp/*.html
 contarsrv/src/main/webapp/swfobject.js
 contarsrv/src/main/webapp/history/
-contarflx/bin-debug/
-contarflx/bin-release/
-contarflx/bin/
+contarsrv/src/main/webapp/modulos/
 
-# Eclipse: metadados do workspace e caches locais
-# (.project, .classpath e .settings/ continuam versionados: o Flash Builder e o m2e-wtp precisam deles)
+# Pasta de servicos gerada/cache do Data/Services
+contarflx/services/
+
+
+# -----------------------------------------------------------------------------
+# Eclipse
+# (.project, .classpath, .actionScriptProperties e .settings/ continuam
+#  versionados: Flash Builder e m2e-wtp precisam deles para importar o projeto)
+# -----------------------------------------------------------------------------
 .metadata/
 .recommenders/
+RemoteSystemsTempFiles/
+Servers/
+.loadpath
+.externalToolBuilders/
 *.launch
+.factorypath
+.apt_generated/
+.apt_generated_tests/
+.springBeans
+.sts4-cache/
+.checkstyle
+.buildpath
+.target
+.tern-project
+.texlipse
 **/.settings/org.eclipse.jpt.entitygen.*
+**/.settings/org.eclipse.core.runtime.prefs
+**/.settings/org.eclipse.ui.*.prefs
 
-# IntelliJ / VS Code
+
+# -----------------------------------------------------------------------------
+# IntelliJ IDEA / VS Code / NetBeans
+# -----------------------------------------------------------------------------
 .idea/
 *.iml
+*.ipr
+*.iws
+out/
 .vscode/
+!.vscode/settings.json.example
+nbproject/private/
+nbbuild/
+nbdist/
+.nb-gradle/
 
-# Logs e temporarios
+
+# -----------------------------------------------------------------------------
+# Servidor de aplicacao (WildFly/JBoss) rodando a partir do projeto
+# -----------------------------------------------------------------------------
+standalone/data/
+standalone/log/
+standalone/tmp/
+*.dodeploy
+*.deployed
+*.failed
+*.isdeploying
+*.undeployed
+
+
+# -----------------------------------------------------------------------------
+# Bancos de dados locais (H2/HSQLDB/SQLite de desenvolvimento)
+# -----------------------------------------------------------------------------
+*.h2.db
+*.mv.db
+*.trace.db
+*.lock.db
+*.hsqldb
+*.sqlite
+*.sqlite3
+
+
+# -----------------------------------------------------------------------------
+# Logs, temporarios e backups
+# -----------------------------------------------------------------------------
 *.log
+logs/
 *.tmp
+*.temp
 *.bak
+*.swp
+*.swo
 *~
+*.orig
+*.rej
+.#*
 
+
+# -----------------------------------------------------------------------------
 # Sistema operacional
+# -----------------------------------------------------------------------------
+# Windows
 Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
 desktop.ini
+$RECYCLE.BIN/
+*.lnk
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+# Linux
+.directory
+.Trash-*
+.nfs*

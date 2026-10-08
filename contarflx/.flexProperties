@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexProperties enableServiceManager="false" flexServerFeatures="4" flexServerType="2" fmlDataModelLocation=".model/contarflx.fml" serverContextRoot="/contarsrv" serverRoot="C:/SN8/git/WP-Contar/contarsrv/src/main/webapp" serverRootURL="http://100.115.22.83:8080/contarsrv" toolCompile="true" useServerFlexSDK="false" version="2"/>
