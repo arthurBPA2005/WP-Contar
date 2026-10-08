@@ -12,8 +12,8 @@
     <annotation name="ServiceConfig">
       <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
       <item name="contextRoot">/contarsrv</item>
-      <item name="rootUrl">http://localhost:8080/contarsrv</item>
-      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080/contarsrv/messagebroker/amf</item>
+      <item name="rootUrl">http://100.115.22.83:8080/contarsrv</item>
+      <item name="ABSOLUTE_ENDPOINT">http://100.115.22.83:8080/contarsrv/messagebroker/amf</item>
     </annotation>
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">BlazeDS</item>
@@ -27,7 +27,7 @@
         <item name="returnType">Agente</item>
       </annotation>
       <annotation name="ValidProperties">
-        <item name="propertySpecifier">codAgente,nomeAgente,status</item>
+        <item name="propertySpecifier">codAgente,status,nomeAgente</item>
       </annotation>
       <parameter name="arg0" type="integer"/>
       <parameter name="arg1" type="string"/>
@@ -75,7 +75,7 @@
         <item name="returnType">Agente</item>
       </annotation>
       <annotation name="ValidProperties">
-        <item name="propertySpecifier">codAgente,nomeAgente,status</item>
+        <item name="propertySpecifier">codAgente,status,nomeAgente</item>
       </annotation>
       <parameter name="arg0" type="integer"/>
     </function>
@@ -103,14 +103,14 @@
       <item name="Package">valueObjects</item>
     </annotation>
     <annotation name="getList">
-      <item name="propertySpecifier">codAgente,nomeAgente,status</item>
+      <item name="propertySpecifier">codAgente,status,nomeAgente</item>
     </annotation>
     <annotation name="getEntity">
-      <item name="propertySpecifier">codAgente,nomeAgente,status</item>
+      <item name="propertySpecifier">codAgente,status,nomeAgente</item>
     </annotation>
     <property name="codAgente" type="integer"/>
-    <property name="nomeAgente" type="string"/>
     <property name="status" type="boolean"/>
+    <property name="nomeAgente" type="string"/>
   </entity>
   <service name="SistemaService">
     <annotation name="ActionScriptGeneration">
@@ -121,9 +121,9 @@
     <annotation name="ServiceConfig">
       <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
       <item name="contextRoot">/contarsrv</item>
-      <item name="rootUrl">http://localhost:8080/contarsrv</item>
+      <item name="rootUrl">http://100.115.22.83:8080/contarsrv</item>
       <item name="LINKED_FILE"></item>
-      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080/contarsrv/messagebroker/amf</item>
+      <item name="ABSOLUTE_ENDPOINT">http://100.115.22.83:8080/contarsrv/messagebroker/amf</item>
     </annotation>
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">BlazeDS</item>

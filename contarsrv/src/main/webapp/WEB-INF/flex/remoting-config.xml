@@ -23,4 +23,11 @@
         <source>br.arthur.contarsrv.services.AgenteService</source>
     </properties>
 	</destination>
+
+	<destination id="tarefaService">
+    <properties>
+        <source>br.arthur.contarsrv.services.TarefaService</source>
+    </properties>
+	</destination>
+	
 </service>

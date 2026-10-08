@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="958" height="400">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.ResultEvent;
+			
+			import valueObjects.Agente;
+			
+			[Bindable]
+			private var controleEnable :Boolean = true;
+			
+			[Bindable]
+			private var entity :Agente = null;
+			
+			private var novo :Boolean = false;
+			
+			protected function btFechar_clickHandler(event:MouseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+			public function btNovo_clickHandler(event:MouseEvent):void
+			{
+				novo = true;
+				controleEnable = false;
+				entity = new Agente();
+				comboStatus.selectedIndex = 0;
+				edtNome.editable = true;
+				comboStatus.enabled = true;
+				
+				getProximoCodigoResult.token = tarefaService.getProximoCodigo();
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:BorderContainer x="853" y="10" width="93" height="347">
+		<s:Button id="btNovo" x="10" y="10" label="Novo" click="btNovo_clickHandler(event)"
+				  enabled="{controleEnable}"/>
+		<s:Button id="btAlterar" x="10" y="39" label="Alterar" enabled="{controleEnable}"/>
+		<s:Button id="btSalvar" x="10" y="88" label="Salvar" enabled="{!controleEnable}"/>
+		<s:Button id="btCancelar" x="10" y="117" label="Cancelar" color="#AA0000"
+				  enabled="{!controleEnable}"/>
+		<s:Button id="btApagar" x="10" y="200" label="Apagar" color="#AA0000"
+				  enabled="{controleEnable}"/>
+		<s:Button id="btFechar" x="10" y="314" label="Fechar" enabled="{controleEnable}"/>
+	</s:BorderContainer>
+	<s:BorderContainer x="10" y="10" width="835" height="347">
+		<s:Label x="10" y="10" fontStyle="italic" fontWeight="bold" text="Código da Tarefa"/>
+		<s:Label x="10" y="60" fontStyle="italic" fontWeight="bold" text="Nome da Tarefa"/>
+		<s:Label x="10" y="110" fontStyle="italic" fontWeight="bold" text="Descrição da Tarefa"/>
+		<s:TextInput id="edtCodTarefa" x="15" y="29" width="439" editable="false"
+					 text="{entity.codTarefa}"/>
+		<s:TextInput id="edtNome" x="15" y="80" width="439" editable="false"
+					 text="{entity.nomeTarefa}"/>
+		<s:Label x="462" y="10" fontStyle="italic" fontWeight="bold" text="Código do Sistema"/>
+		<s:Label x="462" y="60" fontStyle="italic" fontWeight="bold" text="Código do Agente"/>
+		<s:Label x="462" y="161" fontStyle="italic" fontWeight="bold" text="Data de Final"/>
+		<s:Label x="462" y="110" fontStyle="italic" fontWeight="bold" text="Data de Início"/>
+		<s:TextInput id="edtCodTarefa0" x="467" y="29" width="356" editable="false"
+					 text="{entity.codSistema}"/>
+		<s:TextInput id="edtNome0" x="467" y="80" width="356" editable="false"
+					 text="{entity.codAgente}"/>
+		<s:DropDownList id="comboStatus" left="645" top="130" width="170" enabled="false"
+						selectedIndex="0">
+			<s:dataProvider>
+				<s:ArrayList>
+					<fx:Object label="Ativo" data="A"/>
+					<fx:Object label="Inativo" data="I"/>
+				</s:ArrayList>
+			</s:dataProvider>
+		</s:DropDownList>
+		<s:Label x="640" y="110" fontStyle="italic" fontWeight="bold" text="Status"/>
+		<s:TextArea id="edtTarefa" x="15" y="130" width="439" text="{entity.tarefa}"/>
+		<mx:DateField x="467" y="182" width="170"/>
+		<mx:DateField x="467" y="130" width="170"/>
+	</s:BorderContainer>
+</s:TitleWindow>

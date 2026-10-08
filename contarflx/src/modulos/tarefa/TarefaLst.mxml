@@ -1,19 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+<s:Module xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  width="100%" height="100%">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+
+			
+			protected function btCriar_clickHandler(event:MouseEvent):void
+			{
+				var ui :TarefaFrm = new TarefaFrm();
+				
+				PopUpManager.addPopUp(ui, this, true);
+				PopUpManager.centerPopUp(ui);
+				ui.closeButton.visible = false;
+				ui.btNovo_clickHandler(null);
+				
+				ui.addEventListener(Event.REMOVED_FROM_STAGE, function (event :Event) :void 
+				{
+					btPesquisar_clickHandler(null);
+				});
+			}
+			
+			protected function btPesquisar_clickHandler(event:MouseEvent):void
+			{
+				var status :String = comboStatus.selectedItem != null ? comboStatus.selectedItem.data : "";
+				
+				getListResult.token = tarefaService.getList(int(edtCodigo.text), edtNome.text, status);
+			}
+			
+		]]>
+	</fx:Script>
+	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:Panel x="0" y="0" width="100%" height="100%" title="Lista de Tarefas">
 		<s:BorderContainer left="10" right="10" top="23" height="161">
-			<s:Button id="btPesquisar" right="10" bottom="10" height="21" label="Pesquisar"/>
+			<s:Button id="btPesquisar" right="10" bottom="10" height="21" label="Pesquisar"
+					  click="btPesquisar_clickHandler(event)"/>
 			<s:Label x="10" y="10" fontWeight="bold" text="Código"/>
 			<s:Label x="329" y="10" fontWeight="bold" text="Nome"/>
 			<s:TextInput id="EdtCodigo" y="30" left="10" width="100"/>
 			<s:TextInput id="EdtNome" y="30" left="329" right="10"/>
 			<s:Label x="118" y="10" fontWeight="bold" text="Status"/>
-			<s:TextInput id="EdtStatus" x="118" y="30" width="203"/>
 			<s:Label x="10" y="60" fontWeight="bold" text="Nome do Agente"/>
 			<s:TextInput id="EdtAgente" y="79" left="10" width="368"/>
 			<s:Label x="386" y="60" fontWeight="bold" text="Nome do Sistema"/>
@@ -26,6 +58,16 @@
 			<s:Label x="202" y="109" fontWeight="bold" text="Data de Finalização"/>
 			<mx:DateField id="dateInicio" x="10" bottom="10" width="184"/>
 			<mx:DateField id="dateFinal" x="202" bottom="10" width="184"/>
+			<s:DropDownList x="118" y="30" width="203">
+				<s:dataProvider>
+					<s:ArrayList>
+						<fx:Object label="Todos" data=""/>
+						<fx:Object label="Pendente" data="Pendente"/>
+						<fx:Object label="Em andamento" data="Em andamento"/>
+						<fx:Object label="Concluído" data="Concluído"/>
+					</s:ArrayList>
+				</s:dataProvider>
+			</s:DropDownList>
 		</s:BorderContainer>
 		<s:DataGrid left="10" right="10" top="221" bottom="10" requestedRowCount="4">
 			<s:columns>
@@ -36,7 +78,8 @@
 				</s:ArrayList>
 			</s:columns>
 		</s:DataGrid>
-		<s:Button id="btCriar" y="192" right="10" width="50" label="+"/>
+		<s:Button id="btCriar" y="192" right="10" width="50" label="+"
+				  click="btCriar_clickHandler(event)"/>
 		<s:Label y="201" left="10" fontSize="12" fontStyle="italic" fontWeight="bold" text="Lista"/>
 		<s:Label x="11" y="6" fontSize="12" fontStyle="italic" fontWeight="bold" text="Pesquisar"/>
 	</s:Panel>
