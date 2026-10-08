@@ -10,7 +10,7 @@ public class TarefaBusiness {
 
 	private final SistemaDao dao = new SistemaDao();
 
-	public List<Tarefa> getList(Integer codTarefa, String nome, String descricao, Date dataInicio, String status,
+	public List<Tarefa> getList(Integer codTarefa, String nome, Date dataInicio, Date dataFim, String status,
 			Integer agente, String sistema) {
 
 		return null;

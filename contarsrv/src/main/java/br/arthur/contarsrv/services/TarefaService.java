@@ -8,11 +8,11 @@ import br.arthur.contarsrv.domain.Tarefa;
 
 public class TarefaService {
 	
-	public List<Tarefa> getList(Integer codTarefa, String nome, String descricao, Date dataInicio, String status, Integer agente, String sistema) {
+	public List<Tarefa> getList(Integer codTarefa, String nome, Date dataInicio, Date dataFim, String status, Integer agente, String sistema) {
 
 		TarefaBusiness pb = new TarefaBusiness();
 
-		return pb.getList(codTarefa, nome, descricao, dataInicio, status, agente, sistema);
+		return pb.getList(codTarefa, nome, dataInicio, dataFim, status, agente, sistema);
 	}
 
 	public Tarefa getEntity(Integer codTarefa) {

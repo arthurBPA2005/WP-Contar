@@ -58,7 +58,7 @@
 		<s:Label x="10" y="10" fontStyle="italic" fontWeight="bold" text="Código da Tarefa"/>
 		<s:Label x="10" y="60" fontStyle="italic" fontWeight="bold" text="Nome da Tarefa"/>
 		<s:Label x="10" y="110" fontStyle="italic" fontWeight="bold" text="Descrição da Tarefa"/>
-		<s:TextInput id="edtCodTarefa" x="15" y="29" width="439" editable="false"
+		<s:TextInput id="edtCodigo" x="15" y="29" width="439" editable="false"
 					 text="{entity.codTarefa}"/>
 		<s:TextInput id="edtNome" x="15" y="80" width="439" editable="false"
 					 text="{entity.nomeTarefa}"/>
@@ -74,14 +74,15 @@
 						selectedIndex="0">
 			<s:dataProvider>
 				<s:ArrayList>
-					<fx:Object label="Ativo" data="A"/>
-					<fx:Object label="Inativo" data="I"/>
+					<fx:Object label="Pendente" data="Pendente"/>
+					<fx:Object label="Em andamento" data="Em andamento"/>
+					<fx:Object label="Concluído" data="Concluído"/>
 				</s:ArrayList>
 			</s:dataProvider>
 		</s:DropDownList>
 		<s:Label x="640" y="110" fontStyle="italic" fontWeight="bold" text="Status"/>
 		<s:TextArea id="edtTarefa" x="15" y="130" width="439" text="{entity.tarefa}"/>
-		<mx:DateField x="467" y="182" width="170"/>
-		<mx:DateField x="467" y="130" width="170"/>
+		<mx:DateField id="dateFinal" x="467" y="182" width="170"/>
+		<mx:DateField id="dateInicio" x="467" y="130" width="170"/>
 	</s:BorderContainer>
 </s:TitleWindow>
