@@ -63,8 +63,8 @@ public class _Super_Tarefa extends flash.events.EventDispatcher implements com.a
     private var _internal_sistema : String;
     private var _internal_dataInicioISO : String;
     private var _internal_codTarefa : int;
-    private var _internal_nome : String;
     private var _internal_dataInicioFormatada : String;
+    private var _internal_nome : String;
     private var _internal_dataInicio : Date;
     private var _internal_descricao : String;
     private var _internal_status : String;
@@ -122,15 +122,15 @@ public class _Super_Tarefa extends flash.events.EventDispatcher implements com.a
     }
 
     [Bindable(event="propertyChange")]
-    public function get nome() : String
-    {
-        return _internal_nome;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get dataInicioFormatada() : String
     {
         return _internal_dataInicioFormatada;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get nome() : String
+    {
+        return _internal_nome;
     }
 
     [Bindable(event="propertyChange")]
@@ -209,16 +209,6 @@ public class _Super_Tarefa extends flash.events.EventDispatcher implements com.a
         }
     }
 
-    public function set nome(value:String) : void
-    {
-        var oldValue:String = _internal_nome;
-        if (oldValue !== value)
-        {
-            _internal_nome = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nome", oldValue, _internal_nome));
-        }
-    }
-
     public function set dataInicioFormatada(value:String) : void
     {
         var oldValue:String = _internal_dataInicioFormatada;
@@ -226,6 +216,16 @@ public class _Super_Tarefa extends flash.events.EventDispatcher implements com.a
         {
             _internal_dataInicioFormatada = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "dataInicioFormatada", oldValue, _internal_dataInicioFormatada));
+        }
+    }
+
+    public function set nome(value:String) : void
+    {
+        var oldValue:String = _internal_nome;
+        if (oldValue !== value)
+        {
+            _internal_nome = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nome", oldValue, _internal_nome));
         }
     }
 

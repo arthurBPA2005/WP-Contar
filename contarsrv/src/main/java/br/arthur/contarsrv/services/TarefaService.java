@@ -7,7 +7,7 @@ import br.arthur.contarsrv.business.TarefaBusiness;
 import br.arthur.contarsrv.domain.Tarefa;
 
 public class TarefaService {
-	
+
 	public List<Tarefa> getList(Integer codTarefa, String nome, Date dataInicio, Date dataFim, String status, Integer agente, String sistema) {
 
 		TarefaBusiness pb = new TarefaBusiness();
@@ -27,16 +27,16 @@ public class TarefaService {
 		return pb.getProximoCodigo();
 	}
 
-	public void novo(String nome, String descricao, Date dataInicio, String status, Integer agente, String sistema) {
+	public void novo(String nome, String descricao, Date dataInicio, Date dataFim, String status, Integer agente, String sistema) {
 		TarefaBusiness pb = new TarefaBusiness();
 
-		pb.novo(nome, status);
+		pb.novo(nome, descricao, dataInicio, dataFim, status, agente, sistema);
 	}
 
-	public void alterar(Integer codTarefa, String nome, String descricao, Date dataInicio, String status, Integer agente, String sistema) {
+	public void alterar(Integer codTarefa, String nome, String descricao, Date dataInicio, Date dataFim, String status, Integer agente, String sistema) {
 		TarefaBusiness pb = new TarefaBusiness();
 
-		pb.alterar(codTarefa, nome, descricao, dataInicio, status, agente, sistema);
+		pb.alterar(codTarefa, nome, descricao, dataInicio, dataFim, status, agente, sistema);
 	}
 
 	public void delete(Integer codTarefa) {

@@ -20,14 +20,14 @@ internal class _TarefaEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "nome", "dataInicioFormatada", "dataInicio", "descricao", "status");
+    model_internal static var allProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "descricao", "status");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "nome", "dataInicioFormatada", "dataInicio", "descricao", "status");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "descricao", "status");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "nome", "dataInicioFormatada", "dataInicio", "descricao", "status");
+    model_internal static var dataProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "descricao", "status");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "nome", "dataInicioFormatada", "dataInicio", "descricao", "status");
+    model_internal static var nonDerivedProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "descricao", "status");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -52,8 +52,8 @@ internal class _TarefaEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
             model_internal::dependentsOnMap["sistema"] = new Array();
             model_internal::dependentsOnMap["dataInicioISO"] = new Array();
             model_internal::dependentsOnMap["codTarefa"] = new Array();
-            model_internal::dependentsOnMap["nome"] = new Array();
             model_internal::dependentsOnMap["dataInicioFormatada"] = new Array();
+            model_internal::dependentsOnMap["nome"] = new Array();
             model_internal::dependentsOnMap["dataInicio"] = new Array();
             model_internal::dependentsOnMap["descricao"] = new Array();
             model_internal::dependentsOnMap["status"] = new Array();
@@ -69,8 +69,8 @@ internal class _TarefaEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
         model_internal::propertyTypeMap["sistema"] = "String";
         model_internal::propertyTypeMap["dataInicioISO"] = "String";
         model_internal::propertyTypeMap["codTarefa"] = "int";
-        model_internal::propertyTypeMap["nome"] = "String";
         model_internal::propertyTypeMap["dataInicioFormatada"] = "String";
+        model_internal::propertyTypeMap["nome"] = "String";
         model_internal::propertyTypeMap["dataInicio"] = "Date";
         model_internal::propertyTypeMap["descricao"] = "String";
         model_internal::propertyTypeMap["status"] = "String";
@@ -333,13 +333,13 @@ internal class _TarefaEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
     }
 
     [Bindable(event="propertyChange")]
-    public function get isNomeAvailable():Boolean
+    public function get isDataInicioFormatadaAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isDataInicioFormatadaAvailable():Boolean
+    public function get isNomeAvailable():Boolean
     {
         return true;
     }
@@ -403,13 +403,13 @@ internal class _TarefaEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
     }
 
     [Bindable(event="propertyChange")]   
-    public function get nomeStyle():com.adobe.fiber.styles.Style
+    public function get dataInicioFormatadaStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get dataInicioFormatadaStyle():com.adobe.fiber.styles.Style
+    public function get nomeStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

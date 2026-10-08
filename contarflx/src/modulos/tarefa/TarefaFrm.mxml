@@ -2,57 +2,177 @@
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   width="958" height="400">
-	
+			   xmlns:services="services.*"
+			   width="958" height="400" creationPolicy="all" fontStyle="normal" fontWeight="bold"
+			   title="Cadastro de tarefa">
+
 	<fx:Script>
 		<![CDATA[
 			import mx.controls.Alert;
 			import mx.events.CloseEvent;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.ResultEvent;
-			
-			import valueObjects.Agente;
-			
+
+			import valueObjects.Tarefa;
+
 			[Bindable]
 			private var controleEnable :Boolean = true;
-			
+
 			[Bindable]
-			private var entity :Agente = null;
-			
+			private var entity :Tarefa = null;
+
 			private var novo :Boolean = false;
-			
+
+			private function habilitaCampos(valor :Boolean) :void
+			{
+				edtNome.editable = valor;
+				edtSistema.editable = valor;
+				edtAgente.editable = valor;
+				edtTarefa.editable = valor;
+				dateInicio.enabled = valor;
+				dateFinal.enabled = valor;
+				comboStatus.enabled = valor;
+			}
+
 			protected function btFechar_clickHandler(event:MouseEvent):void
 			{
 				PopUpManager.removePopUp(this);
 			}
-			
+
 			public function btNovo_clickHandler(event:MouseEvent):void
 			{
 				novo = true;
 				controleEnable = false;
-				entity = new Agente();
+				entity = new Tarefa();
 				comboStatus.selectedIndex = 0;
-				edtNome.editable = true;
-				comboStatus.enabled = true;
-				
+				dateInicio.selectedDate = null;
+				dateFinal.selectedDate = null;
+				edtSistema.text = "";
+				edtAgente.text = "";
+				habilitaCampos(true);
+
+				// mostra a previsao do proximo codigo no lugar do zero
 				getProximoCodigoResult.token = tarefaService.getProximoCodigo();
 			}
+
+			protected function getProximoCodigoResult_resultHandler(event:ResultEvent):void
+			{
+				edtCodigo.text = String(event.result);
+			}
+
+			protected function btAlterar_clickHandler(event:MouseEvent):void
+			{
+				novo = false;
+				controleEnable = false;
+				habilitaCampos(true);
+			}
+
+			protected function btCancelar_clickHandler(event:MouseEvent):void
+			{
+				if (novo) {
+					PopUpManager.removePopUp(this);
+				} else {
+					controleEnable = true;
+					preencheTela(entity.codTarefa);
+				}
+				edtCodigo.editable = false;
+				habilitaCampos(false);
+			}
+
+			protected function btApagar_clickHandler(event:MouseEvent):void
+			{
+				Alert.yesLabel = "Sim";
+				Alert.noLabel = "Não";
+				Alert.show("Tem certeza?", "Opa!", 1|2, null, function(e: CloseEvent):void
+				{
+					if ( e.detail == Alert.YES )
+					{
+						delete_methodResult.token = tarefaService.delete_method(int(edtCodigo.text));
+					}
+				});
+			}
+
+			protected function delete_methodResult_resultHandler(event:ResultEvent):void
+			{
+				Alert.show("Apagado com sucesso");
+				PopUpManager.removePopUp(this);
+			}
+
+			protected function btSalvar_clickHandler(event:MouseEvent):void
+			{
+				var codTarefa : int = int(edtCodigo.text);
+				var nome : String = edtNome.text;
+				var descricao : String = edtTarefa.text;
+				var dataInicio : Date = dateInicio.selectedDate;
+				var dataFim : Date = dateFinal.selectedDate;
+				var status : String = comboStatus.selectedItem.data;
+				var agente : int = int(edtAgente.text);
+				var sistema : String = edtSistema.text;
+
+				if(novo){
+					// o codigo e gerado pelo banco
+					novoResult.token = tarefaService.novo(nome, descricao, dataInicio, dataFim, status, agente, sistema);
+					edtCodigo.editable = false;
+					habilitaCampos(false);
+					controleEnable = true;
+				}else{
+
+					alterarResult.token = tarefaService.alterar(codTarefa, nome, descricao, dataInicio, dataFim, status, agente, sistema);
+					edtCodigo.editable = false;
+					habilitaCampos(false);
+					controleEnable = true;
+				}
+			}
+
+			public function preencheTela(codTarefa:Number):void
+			{
+				getEntityResult.token = tarefaService.getEntity(codTarefa);
+			}
+
+			protected function getEntityResult_resultHandler(event:ResultEvent):void
+			{
+				entity = event.result as Tarefa;
+
+				var indice :int = 0;
+				for (var i :int = 0; i < comboStatus.dataProvider.length; i++) {
+					if (comboStatus.dataProvider.getItemAt(i).data == entity.status) {
+						indice = i;
+						break;
+					}
+				}
+				comboStatus.selectedIndex = indice;
+
+				dateInicio.selectedDate = entity.dataInicio;
+				dateFinal.selectedDate = entity.dataFim;
+			}
+
 		]]>
 	</fx:Script>
-	
+
 	<fx:Declarations>
+		<s:CallResponder id="getEntityResult" result="getEntityResult_resultHandler(event)"/>
+		<s:CallResponder id="getProximoCodigoResult" result="getProximoCodigoResult_resultHandler(event)"/>
+		<services:TarefaService id="tarefaService"
+								fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
+								showBusyCursor="true"/>
+		<s:CallResponder id="delete_methodResult" result="delete_methodResult_resultHandler(event)"/>
+		<s:CallResponder id="novoResult"/>
+		<s:CallResponder id="alterarResult"/>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:BorderContainer x="853" y="10" width="93" height="347">
 		<s:Button id="btNovo" x="10" y="10" label="Novo" click="btNovo_clickHandler(event)"
 				  enabled="{controleEnable}"/>
-		<s:Button id="btAlterar" x="10" y="39" label="Alterar" enabled="{controleEnable}"/>
-		<s:Button id="btSalvar" x="10" y="88" label="Salvar" enabled="{!controleEnable}"/>
-		<s:Button id="btCancelar" x="10" y="117" label="Cancelar" color="#AA0000"
-				  enabled="{!controleEnable}"/>
-		<s:Button id="btApagar" x="10" y="200" label="Apagar" color="#AA0000"
+		<s:Button id="btAlterar" x="10" y="39" label="Alterar" click="btAlterar_clickHandler(event)"
 				  enabled="{controleEnable}"/>
-		<s:Button id="btFechar" x="10" y="314" label="Fechar" enabled="{controleEnable}"/>
+		<s:Button id="btSalvar" x="10" y="88" label="Salvar" click="btSalvar_clickHandler(event)"
+				  enabled="{!controleEnable}"/>
+		<s:Button id="btCancelar" x="10" y="117" label="Cancelar" click="btCancelar_clickHandler(event)"
+				  color="#AA0000" enabled="{!controleEnable}"/>
+		<s:Button id="btApagar" x="10" y="200" label="Apagar" click="btApagar_clickHandler(event)"
+				  color="#AA0000" enabled="{controleEnable}"/>
+		<s:Button id="btFechar" x="10" y="314" label="Fechar" click="btFechar_clickHandler(event)"
+				  enabled="{controleEnable}"/>
 	</s:BorderContainer>
 	<s:BorderContainer x="10" y="10" width="835" height="347">
 		<s:Label x="10" y="10" fontStyle="italic" fontWeight="bold" text="Código da Tarefa"/>
@@ -61,15 +181,15 @@
 		<s:TextInput id="edtCodigo" x="15" y="29" width="439" editable="false"
 					 text="{entity.codTarefa}"/>
 		<s:TextInput id="edtNome" x="15" y="80" width="439" editable="false"
-					 text="{entity.nomeTarefa}"/>
+					 text="{entity.nome}"/>
 		<s:Label x="462" y="10" fontStyle="italic" fontWeight="bold" text="Código do Sistema"/>
 		<s:Label x="462" y="60" fontStyle="italic" fontWeight="bold" text="Código do Agente"/>
 		<s:Label x="462" y="161" fontStyle="italic" fontWeight="bold" text="Data de Final"/>
 		<s:Label x="462" y="110" fontStyle="italic" fontWeight="bold" text="Data de Início"/>
-		<s:TextInput id="edtCodTarefa0" x="467" y="29" width="356" editable="false"
-					 text="{entity.codSistema}"/>
-		<s:TextInput id="edtNome0" x="467" y="80" width="356" editable="false"
-					 text="{entity.codAgente}"/>
+		<s:TextInput id="edtSistema" x="467" y="29" width="356" editable="false"
+					 text="{entity.sistema}"/>
+		<s:TextInput id="edtAgente" x="467" y="80" width="356" editable="false" restrict="0-9"
+					 text="{entity.agente}"/>
 		<s:DropDownList id="comboStatus" left="645" top="130" width="170" enabled="false"
 						selectedIndex="0">
 			<s:dataProvider>
@@ -81,8 +201,9 @@
 			</s:dataProvider>
 		</s:DropDownList>
 		<s:Label x="640" y="110" fontStyle="italic" fontWeight="bold" text="Status"/>
-		<s:TextArea id="edtTarefa" x="15" y="130" width="439" text="{entity.tarefa}"/>
-		<mx:DateField id="dateFinal" x="467" y="182" width="170"/>
-		<mx:DateField id="dateInicio" x="467" y="130" width="170"/>
+		<s:TextArea id="edtTarefa" x="15" y="130" width="439" editable="false"
+					text="{entity.descricao}"/>
+		<mx:DateField id="dateFinal" x="467" y="182" width="170" enabled="false"/>
+		<mx:DateField id="dateInicio" x="467" y="130" width="170" enabled="false"/>
 	</s:BorderContainer>
 </s:TitleWindow>

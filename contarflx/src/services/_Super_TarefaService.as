@@ -111,10 +111,10 @@ internal class _Super_TarefaService extends com.adobe.fiber.services.wrapper.Rem
       *
       * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
       */
-    public function novo(arg0:String, arg1:String, arg2:Date, arg3:String, arg4:int, arg5:String) : mx.rpc.AsyncToken
+    public function novo(arg0:String, arg1:String, arg2:Date, arg3:Date, arg4:String, arg5:int, arg6:String) : mx.rpc.AsyncToken
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("novo");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1,arg2,arg3,arg4,arg5) ;
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1,arg2,arg3,arg4,arg5,arg6) ;
         return _internal_token;
     }
      
@@ -147,10 +147,10 @@ internal class _Super_TarefaService extends com.adobe.fiber.services.wrapper.Rem
       *
       * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
       */
-    public function alterar(arg0:int, arg1:String, arg2:String, arg3:Date, arg4:String, arg5:int, arg6:String) : mx.rpc.AsyncToken
+    public function alterar(arg0:int, arg1:String, arg2:String, arg3:Date, arg4:Date, arg5:String, arg6:int, arg7:String) : mx.rpc.AsyncToken
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("alterar");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1,arg2,arg3,arg4,arg5,arg6) ;
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1,arg2,arg3,arg4,arg5,arg6,arg7) ;
         return _internal_token;
     }
      

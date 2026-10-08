@@ -4,46 +4,81 @@
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
 		  xmlns:services="services.*"
 		  width="100%" height="100%">
-	
+
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.managers.PopUpManager;
-			
+			import mx.rpc.events.ResultEvent;
+
 			import spark.components.gridClasses.GridColumn;
+			import spark.events.GridEvent;
+
+			import valueObjects.Tarefa;
 
 			[Bindable]
 			private var lista :ArrayCollection = new ArrayCollection;
-			
-			
+
+			protected function btPesquisar_clickHandler(event:MouseEvent):void
+			{
+				var status :String = comboStatus.selectedItem != null ? comboStatus.selectedItem.data : "";
+
+				getListResult.token = tarefaService.getList(int(edtCodigo.text), edtNome.text, dateInicio.selectedDate, dateFinal.selectedDate, status, int(edtAgente.text), edtSistema.text);
+			}
+
+			protected function getListResult_resultHandler(event:ResultEvent):void
+			{
+				lista = event.result as ArrayCollection;
+			}
+
+			private function dataLabel(item :Object, column :GridColumn) :String
+			{
+				var data :Date = item[column.dataField] as Date;
+
+				return data == null ? "" : dtFormatter.format(data);
+			}
+
 			protected function btCriar_clickHandler(event:MouseEvent):void
 			{
 				var ui :TarefaFrm = new TarefaFrm();
-				
+
 				PopUpManager.addPopUp(ui, this, true);
 				PopUpManager.centerPopUp(ui);
 				ui.closeButton.visible = false;
 				ui.btNovo_clickHandler(null);
-				
-				ui.addEventListener(Event.REMOVED_FROM_STAGE, function (event :Event) :void 
+
+				ui.addEventListener(Event.REMOVED_FROM_STAGE, function (event :Event) :void
 				{
 					btPesquisar_clickHandler(null);
 				});
 			}
-			
-			protected function btPesquisar_clickHandler(event:MouseEvent):void
+
+			protected function dgTarefa_gridDoubleClickHandler(event:GridEvent):void
 			{
-				var status :String = comboStatus.selectedItem != null ? comboStatus.selectedItem.data : "";
-				
-				getListResult.token = tarefaService.getList(int(edtCodigo.text), edtNome.text, dateInicio.selectedDate, dateFinal.selectedDate, status, int(edtAgente.text), edtSistema.text);
+				if ( dgTarefa.selectedItem != null) {
+
+					var obj :Tarefa = dgTarefa.selectedItem as Tarefa;
+
+					var ui :TarefaFrm = new TarefaFrm();
+					PopUpManager.addPopUp(ui, this, true);
+					PopUpManager.centerPopUp(ui);
+					ui.closeButton.visible = false;
+					ui.preencheTela(obj.codTarefa);
+
+					ui.addEventListener(Event.REMOVED_FROM_STAGE, function (event :Event) :void
+					{
+						btPesquisar_clickHandler(null);
+					});
+				}
 			}
-			
+
 		]]>
 	</fx:Script>
-	
+
 	<fx:Declarations>
-		<s:CallResponder id="getListResult"/>
+		<s:CallResponder id="getListResult" result="getListResult_resultHandler(event)"/>
+		<mx:DateFormatter id="dtFormatter" formatString="DD/MM/YYYY"/>
 		<services:TarefaService id="tarefaService"
 								fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
 								showBusyCursor="true"/>
@@ -55,12 +90,12 @@
 					  click="btPesquisar_clickHandler(event)"/>
 			<s:Label x="10" y="10" fontWeight="bold" text="Código"/>
 			<s:Label x="118" y="10" fontWeight="bold" text="Nome"/>
-			<s:TextInput id="edtCodigo" y="30" left="10" width="100"/>
+			<s:TextInput id="edtCodigo" y="30" left="10" width="100" restrict="0-9"/>
 			<s:TextInput id="edtNome" y="30" left="118" right="10"/>
 			<s:Label x="387" y="109" fontWeight="bold" text="Status"/>
-			<s:Label x="10" y="60" fontWeight="bold" text="Nome do Agente"/>
-			<s:TextInput id="edtAgente" y="79" left="10" width="368"/>
-			<s:Label x="386" y="60" fontWeight="bold" text="Nome do Sistema"/>
+			<s:Label x="10" y="60" fontWeight="bold" text="Código do Agente"/>
+			<s:TextInput id="edtAgente" y="79" left="10" width="368" restrict="0-9"/>
+			<s:Label x="386" y="60" fontWeight="bold" text="Código do Sistema"/>
 			<s:TextInput id="edtSistema" y="79" left="386" right="10"/>
 			<s:Label y="109" left="10" fontWeight="bold" text="Data de Início"/>
 			<s:Label x="202" y="109" fontWeight="bold" text="Data de Finalização"/>
@@ -77,16 +112,20 @@
 				</s:dataProvider>
 			</s:DropDownList>
 		</s:BorderContainer>
-		<s:DataGrid left="10" right="10" top="221" bottom="10" requestedRowCount="4">
+		<s:DataGrid id="dgTarefa" left="10" right="10" top="221" bottom="30" dataProvider="{lista}"
+					doubleClickEnabled="true"
+					gridDoubleClick="dgTarefa_gridDoubleClickHandler(event)">
 			<s:columns>
 				<s:ArrayList>
-					<s:GridColumn width="100" dataField="dataField1" headerText="Codigo"></s:GridColumn>
-					<s:GridColumn width="280" dataField="dataField2" headerText="Nome"></s:GridColumn>
-					<s:GridColumn width="250" dataField="dataField1" headerText="Nome do Agente"></s:GridColumn>
-					<s:GridColumn width="250" dataField="dataField1" headerText="Nome do Sistema"></s:GridColumn>
-					<s:GridColumn width="100" dataField="dataField2" headerText="Data Início"></s:GridColumn>
-					<s:GridColumn width="100" dataField="dataField3" headerText="Data de Finalização"></s:GridColumn>
-					<s:GridColumn width="100" dataField="dataField1" headerText="Status"></s:GridColumn>
+					<s:GridColumn width="100" dataField="codTarefa" headerText="Código"></s:GridColumn>
+					<s:GridColumn width="280" dataField="nome" headerText="Nome"></s:GridColumn>
+					<s:GridColumn width="250" dataField="agente" headerText="Código do Agente"></s:GridColumn>
+					<s:GridColumn width="250" dataField="sistema" headerText="Código do Sistema"></s:GridColumn>
+					<s:GridColumn width="130" dataField="dataInicio" headerText="Data Início"
+								  labelFunction="dataLabel"></s:GridColumn>
+					<s:GridColumn width="130" dataField="dataFim" headerText="Data de Finalização"
+								  labelFunction="dataLabel"></s:GridColumn>
+					<s:GridColumn width="120" dataField="status" headerText="Status"></s:GridColumn>
 				</s:ArrayList>
 			</s:columns>
 		</s:DataGrid>
@@ -94,5 +133,7 @@
 				  click="btCriar_clickHandler(event)"/>
 		<s:Label y="201" left="10" fontSize="12" fontStyle="italic" fontWeight="bold" text="Lista"/>
 		<s:Label x="11" y="6" fontSize="12" fontStyle="italic" fontWeight="bold" text="Pesquisar"/>
+		<s:Label x="10" bottom="10" fontStyle="italic" fontWeight="bold"
+				 text="{lista.length} linhas encontrada"/>
 	</s:Panel>
 </s:Module>
