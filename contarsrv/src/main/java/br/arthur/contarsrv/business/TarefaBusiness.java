@@ -94,10 +94,7 @@ public class TarefaBusiness {
 		return dao.getEntity(codTarefa);
 	}
 
-	/**
-	 * Previsao do proximo codigo (maior codigo + 1), so para exibir na tela.
-	 * Quem gera o codigo de verdade e o banco (IDENTITY) no momento do insert.
-	 */
+	
 	public Integer getProximoCodigo() {
 
 		return dao.getNextCod("codTarefa");

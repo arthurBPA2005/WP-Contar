@@ -118,14 +118,14 @@
 			<s:columns>
 				<s:ArrayList>
 					<s:GridColumn width="100" dataField="codTarefa" headerText="Código"></s:GridColumn>
-					<s:GridColumn width="280" dataField="nome" headerText="Nome"></s:GridColumn>
-					<s:GridColumn width="250" dataField="agente" headerText="Código do Agente"></s:GridColumn>
-					<s:GridColumn width="250" dataField="sistema" headerText="Código do Sistema"></s:GridColumn>
-					<s:GridColumn width="130" dataField="dataInicio" headerText="Data Início"
+					<s:GridColumn width="300" dataField="nome" headerText="Nome"></s:GridColumn>
+					<s:GridColumn width="280" dataField="agente" headerText="Código do Agente"></s:GridColumn>
+					<s:GridColumn width="280" dataField="sistema" headerText="Código do Sistema"></s:GridColumn>
+					<s:GridColumn width="140" dataField="dataInicio" headerText="Data Início"
 								  labelFunction="dataLabel"></s:GridColumn>
-					<s:GridColumn width="130" dataField="dataFim" headerText="Data de Finalização"
+					<s:GridColumn width="140" dataField="dataFim" headerText="Data de Finalização"
 								  labelFunction="dataLabel"></s:GridColumn>
-					<s:GridColumn width="120" dataField="status" headerText="Status"></s:GridColumn>
+					<s:GridColumn width="100" dataField="status" headerText="Status"></s:GridColumn>
 				</s:ArrayList>
 			</s:columns>
 		</s:DataGrid>
