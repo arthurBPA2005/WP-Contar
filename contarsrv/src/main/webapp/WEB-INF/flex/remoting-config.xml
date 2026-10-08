@@ -14,19 +14,19 @@
 
 	<destination id="sistemaService">
     <properties>
-        <source>br.arthur.contarsrv.services.SistemaService</source>
+        <source>br.arthur.contarsrv.service.SistemaService</source>
     </properties>
     </destination>
     
     <destination id="agenteService">
     <properties>
-        <source>br.arthur.contarsrv.services.AgenteService</source>
+        <source>br.arthur.contarsrv.service.AgenteService</source>
     </properties>
 	</destination>
 
 	<destination id="tarefaService">
     <properties>
-        <source>br.arthur.contarsrv.services.TarefaService</source>
+        <source>br.arthur.contarsrv.service.TarefaService</source>
     </properties>
 	</destination>
 	

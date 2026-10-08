@@ -35,8 +35,6 @@ internal class _Super_AgenteService extends com.adobe.fiber.services.wrapper.Rem
         operation = new mx.rpc.remoting.Operation(null, "getList");
          operation.resultElementType = valueObjects.Agente;
         operations["getList"] = operation;
-        operation = new mx.rpc.remoting.Operation(null, "novo");
-        operations["novo"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "delete");
         operations["delete"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "alterar");
@@ -44,6 +42,8 @@ internal class _Super_AgenteService extends com.adobe.fiber.services.wrapper.Rem
         operation = new mx.rpc.remoting.Operation(null, "getEntity");
          operation.resultType = valueObjects.Agente;
         operations["getEntity"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "novo");
+        operations["novo"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "getProximoCodigo");
          operation.resultType = int;
         operations["getProximoCodigo"] = operation;
@@ -79,24 +79,6 @@ internal class _Super_AgenteService extends com.adobe.fiber.services.wrapper.Rem
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getList");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1,arg2) ;
-        return _internal_token;
-    }
-     
-    /**
-      * This method is a generated wrapper used to call the 'novo' operation. It returns an mx.rpc.AsyncToken whose 
-      * result property will be populated with the result of the operation when the server response is received. 
-      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
-      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
-      *
-      * @see mx.rpc.AsyncToken
-      * @see mx.rpc.CallResponder 
-      *
-      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
-      */
-    public function novo(arg0:String, arg1:Boolean) : mx.rpc.AsyncToken
-    {
-        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("novo");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1) ;
         return _internal_token;
     }
      
@@ -151,6 +133,24 @@ internal class _Super_AgenteService extends com.adobe.fiber.services.wrapper.Rem
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getEntity");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'novo' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function novo(arg0:String, arg1:Boolean) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("novo");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1) ;
         return _internal_token;
     }
      

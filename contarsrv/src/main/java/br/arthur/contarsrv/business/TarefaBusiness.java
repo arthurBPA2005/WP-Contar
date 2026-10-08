@@ -12,8 +12,8 @@ public class TarefaBusiness {
 
 	private final TarefaDao dao = new TarefaDao();
 
-	public List<Tarefa> getList(Integer codTarefa, String nome, Date dataInicio, Date dataFim, String status,
-			Integer agente, String sistema) {
+	public List<Tarefa> getList(Integer codTarefa, String nome, Date dataInicioDe, Date dataInicioAte, Date dataFimDe,
+			Date dataFimAte, String status, Integer agente, String sistema) {
 
 		StringBuilder condicao = new StringBuilder(" 1 = 1 ");
 		Map<String, Object> parametros = new HashMap<>();
@@ -41,6 +41,26 @@ public class TarefaBusiness {
 		if (sistema != null && !sistema.isBlank()) {
 			condicao.append(" and obj.codSistema = :codSistema ");
 			parametros.put("codSistema", sistema.trim());
+		}
+
+		if (dataInicioDe != null) {
+			condicao.append(" and obj.dataInicio >= :dataInicioDe ");
+			parametros.put("dataInicioDe", dataInicioDe);
+		}
+
+		if (dataInicioAte != null) {
+			condicao.append(" and obj.dataInicio <= :dataInicioAte ");
+			parametros.put("dataInicioAte", dataInicioAte);
+		}
+
+		if (dataFimDe != null) {
+			condicao.append(" and obj.dataFim >= :dataFimDe ");
+			parametros.put("dataFimDe", dataFimDe);
+		}
+
+		if (dataFimAte != null) {
+			condicao.append(" and obj.dataFim <= :dataFimAte ");
+			parametros.put("dataFimAte", dataFimAte);
 		}
 
 		condicao.append(" order by obj.codTarefa");

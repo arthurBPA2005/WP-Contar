@@ -4,78 +4,80 @@
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
 		  xmlns:services="services.*"
 		  width="100%" height="100%">
-
+	
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.ResultEvent;
-
+			
 			import spark.components.gridClasses.GridColumn;
 			import spark.events.GridEvent;
-
+			
 			import valueObjects.Tarefa;
-
+			
 			[Bindable]
 			private var lista :ArrayCollection = new ArrayCollection;
-
+			
 			protected function btPesquisar_clickHandler(event:MouseEvent):void
 			{
 				var status :String = comboStatus.selectedItem != null ? comboStatus.selectedItem.data : "";
-
-				getListResult.token = tarefaService.getList(int(edtCodigo.text), edtNome.text, dateInicio.selectedDate, dateFinal.selectedDate, status, int(edtAgente.text), edtSistema.text);
+				
+				getListResult.token = tarefaService.getList(int(edtCodigo.text), edtNome.text, 
+					dateInicioDe.selectedDate, dateInicioAte.selectedDate,  dateFinalDe.selectedDate, dateFinalAte.selectedDate, status, 
+					int(edtAgente.text), edtSistema.text);
 			}
-
+			
 			protected function getListResult_resultHandler(event:ResultEvent):void
 			{
 				lista = event.result as ArrayCollection;
 			}
-
+			
 			private function dataLabel(item :Object, column :GridColumn) :String
 			{
 				var data :Date = item[column.dataField] as Date;
-
+				
 				return data == null ? "" : dtFormatter.format(data);
 			}
-
+			
 			protected function btCriar_clickHandler(event:MouseEvent):void
 			{
 				var ui :TarefaFrm = new TarefaFrm();
-
+				
 				PopUpManager.addPopUp(ui, this, true);
 				PopUpManager.centerPopUp(ui);
 				ui.closeButton.visible = false;
 				ui.btNovo_clickHandler(null);
-
+				
 				ui.addEventListener(Event.REMOVED_FROM_STAGE, function (event :Event) :void
 				{
 					btPesquisar_clickHandler(null);
 				});
 			}
-
+			
 			protected function dgTarefa_gridDoubleClickHandler(event:GridEvent):void
 			{
 				if ( dgTarefa.selectedItem != null) {
-
+					
 					var obj :Tarefa = dgTarefa.selectedItem as Tarefa;
-
+					
 					var ui :TarefaFrm = new TarefaFrm();
 					PopUpManager.addPopUp(ui, this, true);
 					PopUpManager.centerPopUp(ui);
 					ui.closeButton.visible = false;
 					ui.preencheTela(obj.codTarefa);
-
+					
 					ui.addEventListener(Event.REMOVED_FROM_STAGE, function (event :Event) :void
 					{
 						btPesquisar_clickHandler(null);
 					});
 				}
 			}
-
+			
 		]]>
 	</fx:Script>
-
+	
 	<fx:Declarations>
 		<s:CallResponder id="getListResult" result="getListResult_resultHandler(event)"/>
 		<mx:DateFormatter id="dtFormatter" formatString="DD/MM/YYYY"/>
@@ -92,18 +94,25 @@
 			<s:Label x="118" y="10" fontWeight="bold" text="Nome"/>
 			<s:TextInput id="edtCodigo" y="30" left="10" width="100" restrict="0-9"/>
 			<s:TextInput id="edtNome" y="30" left="118" right="10"/>
-			<s:Label x="387" y="109" fontWeight="bold" text="Status"/>
+			<s:Label x="817" y="109" fontWeight="bold" text="Status"/>
 			<s:Label x="10" y="60" fontWeight="bold" text="Código do Agente"/>
 			<s:TextInput id="edtAgente" y="79" left="10" width="368" restrict="0-9"/>
 			<s:Label x="386" y="60" fontWeight="bold" text="Código do Sistema"/>
 			<s:TextInput id="edtSistema" y="79" left="386" right="10"/>
 			<s:Label y="109" left="10" fontWeight="bold" text="Data de Início"/>
-			<s:Label x="202" y="109" fontWeight="bold" text="Data de Finalização"/>
-			<mx:DateField id="dateInicio" x="10" bottom="10" width="184" editable="true"
-						formatString="DD/MM/YYYY"/>
-			<mx:DateField id="dateFinal" x="202" bottom="10" width="184" editable="true"
-						formatString="DD/MM/YYYY"/>
-			<s:DropDownList id="comboStatus" x="394" y="126" width="203" selectedIndex="0">
+			<s:Label x="410" y="109" fontWeight="bold" text="Data de Finalização"/>
+			<s:Label x="602" y="131" fontWeight="bold" text="à"/>
+			
+			<mx:DateField id="dateInicioDe" x="10" bottom="10" width="184" editable="true"
+						  formatString="DD/MM/YYYY"/>
+			<mx:DateField id="dateInicioAte" x="218" bottom="10" width="184" editable="true"
+						  formatString="DD/MM/YYYY"/>
+			
+			<mx:DateField id="dateFinalDe" x="410" bottom="10" width="184" editable="true"
+						  formatString="DD/MM/YYYY"/>
+			<mx:DateField id="dateFinalAte" x="622" bottom="10" width="184" editable="true"
+						  formatString="DD/MM/YYYY"/>
+			<s:DropDownList id="comboStatus" x="817" y="126" width="203" selectedIndex="0">
 				<s:dataProvider>
 					<s:ArrayList>
 						<fx:Object label="Todos" data=""/>
@@ -113,6 +122,7 @@
 					</s:ArrayList>
 				</s:dataProvider>
 			</s:DropDownList>
+			<s:Label x="202" y="131" fontWeight="bold" text="à"/>
 		</s:BorderContainer>
 		<s:DataGrid id="dgTarefa" left="10" right="10" top="221" bottom="30" dataProvider="{lista}"
 					doubleClickEnabled="true"

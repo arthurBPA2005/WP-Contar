@@ -1,4 +1,4 @@
-package br.arthur.contarsrv.services;
+package br.arthur.contarsrv.service;
 
 import java.util.Date;
 import java.util.List;
@@ -8,11 +8,12 @@ import br.arthur.contarsrv.domain.Tarefa;
 
 public class TarefaService {
 
-	public List<Tarefa> getList(Integer codTarefa, String nome, Date dataInicio, Date dataFim, String status, Integer agente, String sistema) {
+	public List<Tarefa> getList(Integer codTarefa, String nome, Date dataInicioDe, Date dataInicioAte, Date dataFimDe,
+			Date dataFimAte, String status, Integer agente, String sistema) {
 
 		TarefaBusiness pb = new TarefaBusiness();
 
-		return pb.getList(codTarefa, nome, dataInicio, dataFim, status, agente, sistema);
+		return pb.getList(codTarefa, nome, dataInicioDe, dataInicioAte, dataFimDe, dataFimAte, status, agente, sistema);
 	}
 
 	public Tarefa getEntity(Integer codTarefa) {
@@ -27,13 +28,15 @@ public class TarefaService {
 		return pb.getProximoCodigo();
 	}
 
-	public void novo(String nome, String descricao, Date dataInicio, Date dataFim, String status, Integer agente, String sistema) {
+	public void novo(String nome, String descricao, Date dataInicio, Date dataFim, String status, Integer agente,
+			String sistema) {
 		TarefaBusiness pb = new TarefaBusiness();
 
 		pb.novo(nome, descricao, dataInicio, dataFim, status, agente, sistema);
 	}
 
-	public void alterar(Integer codTarefa, String nome, String descricao, Date dataInicio, Date dataFim, String status, Integer agente, String sistema) {
+	public void alterar(Integer codTarefa, String nome, String descricao, Date dataInicio, Date dataFim, String status,
+			Integer agente, String sistema) {
 		TarefaBusiness pb = new TarefaBusiness();
 
 		pb.alterar(codTarefa, nome, descricao, dataInicio, dataFim, status, agente, sistema);

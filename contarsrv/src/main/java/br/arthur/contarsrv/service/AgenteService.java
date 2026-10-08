@@ -1,4 +1,4 @@
-package br.arthur.contarsrv.services;
+package br.arthur.contarsrv.service;
 
 import java.util.List;
 
