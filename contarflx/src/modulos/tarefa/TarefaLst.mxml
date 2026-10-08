@@ -9,23 +9,23 @@
 		<s:BorderContainer left="10" right="10" top="23" height="161">
 			<s:Button id="btPesquisar" right="10" bottom="10" height="21" label="Pesquisar"/>
 			<s:Label x="10" y="10" fontWeight="bold" text="Código"/>
-			<s:Label x="249" y="10" fontWeight="bold" text="Nome"/>
-			<s:TextInput id="EdtCodigo" y="30" left="10" width="88"/>
-			<s:TextInput id="EdtNome" y="30" left="249" right="10"/>
-			<s:Label x="106" y="10" fontWeight="bold" text="Status"/>
-			<s:TextInput id="EdtStatus" x="106" y="30" width="135"/>
+			<s:Label x="329" y="10" fontWeight="bold" text="Nome"/>
+			<s:TextInput id="EdtCodigo" y="30" left="10" width="100"/>
+			<s:TextInput id="EdtNome" y="30" left="329" right="10"/>
+			<s:Label x="118" y="10" fontWeight="bold" text="Status"/>
+			<s:TextInput id="EdtStatus" x="118" y="30" width="203"/>
 			<s:Label x="10" y="60" fontWeight="bold" text="Nome do Agente"/>
-			<s:TextInput id="EdtAgente" y="79" left="10" width="184"/>
-			<s:Label x="202" y="59" fontWeight="bold" text="Nome do Sistema"/>
-			<s:TextInput id="EdtSistema" y="79" left="202" right="10"/>
-			<s:Label x="10" y="109" fontWeight="bold" text="Código do Agente"/>
-			<s:TextInput id="EdtCodAgente" y="127" left="10" width="184"/>
-			<s:Label x="202" y="109" fontWeight="bold" text="Código do Sistema"/>
-			<s:TextInput id="EdtCodSistema" x="202" y="127" width="184"/>
-			<s:Label x="394" y="110" fontWeight="bold" text="Data de Início"/>
-			<s:Label x="692" y="110" fontWeight="bold" text="Data de Finalização"/>
-			<s:TextInput id="EdtFinal" y="127" left="692" right="96"/>
-			<mx:DateField id="EdtInicio" x="394" y="127" width="290"/>
+			<s:TextInput id="EdtAgente" y="79" left="10" width="368"/>
+			<s:Label x="386" y="60" fontWeight="bold" text="Nome do Sistema"/>
+			<s:TextInput id="EdtSistema" y="79" left="386" right="10"/>
+			<s:Label x="394" y="109" fontWeight="bold" text="Código do Agente"/>
+			<s:TextInput id="EdtCodAgente" left="858" right="96" bottom="10"/>
+			<s:Label x="858" y="109" fontWeight="bold" text="Código do Sistema"/>
+			<s:TextInput id="EdtCodSistema" x="394" bottom="10" width="456"/>
+			<s:Label y="109" left="10" fontWeight="bold" text="Data de Início"/>
+			<s:Label x="202" y="109" fontWeight="bold" text="Data de Finalização"/>
+			<mx:DateField id="dateInicio" x="10" bottom="10" width="184"/>
+			<mx:DateField id="dateFinal" x="202" bottom="10" width="184"/>
 		</s:BorderContainer>
 		<s:DataGrid left="10" right="10" top="221" bottom="10" requestedRowCount="4">
 			<s:columns>
