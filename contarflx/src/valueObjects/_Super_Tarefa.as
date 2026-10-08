@@ -66,8 +66,8 @@ public class _Super_Tarefa extends flash.events.EventDispatcher implements com.a
     private var _internal_dataInicioFormatada : String;
     private var _internal_nome : String;
     private var _internal_dataInicio : Date;
-    private var _internal_descricao : String;
     private var _internal_status : String;
+    private var _internal_descricao : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -140,15 +140,15 @@ public class _Super_Tarefa extends flash.events.EventDispatcher implements com.a
     }
 
     [Bindable(event="propertyChange")]
-    public function get descricao() : String
-    {
-        return _internal_descricao;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get status() : String
     {
         return _internal_status;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get descricao() : String
+    {
+        return _internal_descricao;
     }
 
     public function clearAssociations() : void
@@ -239,16 +239,6 @@ public class _Super_Tarefa extends flash.events.EventDispatcher implements com.a
         }
     }
 
-    public function set descricao(value:String) : void
-    {
-        var oldValue:String = _internal_descricao;
-        if (oldValue !== value)
-        {
-            _internal_descricao = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "descricao", oldValue, _internal_descricao));
-        }
-    }
-
     public function set status(value:String) : void
     {
         var oldValue:String = _internal_status;
@@ -256,6 +246,16 @@ public class _Super_Tarefa extends flash.events.EventDispatcher implements com.a
         {
             _internal_status = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "status", oldValue, _internal_status));
+        }
+    }
+
+    public function set descricao(value:String) : void
+    {
+        var oldValue:String = _internal_descricao;
+        if (oldValue !== value)
+        {
+            _internal_descricao = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "descricao", oldValue, _internal_descricao));
         }
     }
 

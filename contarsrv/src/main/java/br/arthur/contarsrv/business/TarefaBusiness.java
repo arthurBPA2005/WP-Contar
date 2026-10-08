@@ -1,6 +1,5 @@
 package br.arthur.contarsrv.business;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,18 +28,6 @@ public class TarefaBusiness {
 			parametros.put("nome", "%" + nome.trim().toUpperCase() + "%");
 		}
 
-		// tarefas que comecam a partir do dia informado (00:00:00)
-		if (dataInicio != null) {
-			condicao.append(" and obj.dataInicio >= :dataInicio ");
-			parametros.put("dataInicio", inicioDoDia(dataInicio));
-		}
-
-		// tarefas finalizadas ate o dia informado (23:59:59)
-		if (dataFim != null) {
-			condicao.append(" and obj.dataFim <= :dataFim ");
-			parametros.put("dataFim", fimDoDia(dataFim));
-		}
-
 		if (status != null && !status.isBlank()) {
 			condicao.append(" and obj.status = :status ");
 			parametros.put("status", status.trim());
@@ -61,30 +48,6 @@ public class TarefaBusiness {
 		return dao.getListByCond(condicao.toString(), parametros);
 	}
 
-	private Date inicioDoDia(Date data) {
-
-		Calendar c = Calendar.getInstance();
-		c.setTime(data);
-		c.set(Calendar.HOUR_OF_DAY, 0);
-		c.set(Calendar.MINUTE, 0);
-		c.set(Calendar.SECOND, 0);
-		c.set(Calendar.MILLISECOND, 0);
-
-		return c.getTime();
-	}
-
-	private Date fimDoDia(Date data) {
-
-		Calendar c = Calendar.getInstance();
-		c.setTime(data);
-		c.set(Calendar.HOUR_OF_DAY, 23);
-		c.set(Calendar.MINUTE, 59);
-		c.set(Calendar.SECOND, 59);
-		c.set(Calendar.MILLISECOND, 999);
-
-		return c.getTime();
-	}
-
 	public Tarefa getEntity(Integer codTarefa) {
 
 		if (codTarefa == null || codTarefa == 0) {
@@ -94,7 +57,6 @@ public class TarefaBusiness {
 		return dao.getEntity(codTarefa);
 	}
 
-	
 	public Integer getProximoCodigo() {
 
 		return dao.getNextCod("codTarefa");
@@ -103,7 +65,6 @@ public class TarefaBusiness {
 	public void novo(String nome, String descricao, Date dataInicio, Date dataFim, String status, Integer agente,
 			String sistema) {
 
-		// o codigo da tarefa e gerado pelo banco (IDENTITY)
 		valida(nome, descricao, status, agente, sistema);
 
 		Tarefa tarefa = new Tarefa();
@@ -118,8 +79,8 @@ public class TarefaBusiness {
 		dao.create(tarefa);
 	}
 
-	public void alterar(Integer codTarefa, String nome, String descricao, Date dataInicio, Date dataFim,
-			String status, Integer agente, String sistema) {
+	public void alterar(Integer codTarefa, String nome, String descricao, Date dataInicio, Date dataFim, String status,
+			Integer agente, String sistema) {
 
 		if (codTarefa == null || codTarefa == 0) {
 			throw new IllegalArgumentException("Informe o código da tarefa.");

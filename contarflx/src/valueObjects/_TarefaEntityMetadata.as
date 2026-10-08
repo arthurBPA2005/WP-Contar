@@ -20,14 +20,14 @@ internal class _TarefaEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "descricao", "status");
+    model_internal static var allProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "status", "descricao");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "descricao", "status");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "status", "descricao");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "descricao", "status");
+    model_internal static var dataProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "status", "descricao");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "descricao", "status");
+    model_internal static var nonDerivedProperties:Array = new Array("agente", "dataFim", "sistema", "dataInicioISO", "codTarefa", "dataInicioFormatada", "nome", "dataInicio", "status", "descricao");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -55,8 +55,8 @@ internal class _TarefaEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
             model_internal::dependentsOnMap["dataInicioFormatada"] = new Array();
             model_internal::dependentsOnMap["nome"] = new Array();
             model_internal::dependentsOnMap["dataInicio"] = new Array();
-            model_internal::dependentsOnMap["descricao"] = new Array();
             model_internal::dependentsOnMap["status"] = new Array();
+            model_internal::dependentsOnMap["descricao"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -72,8 +72,8 @@ internal class _TarefaEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
         model_internal::propertyTypeMap["dataInicioFormatada"] = "String";
         model_internal::propertyTypeMap["nome"] = "String";
         model_internal::propertyTypeMap["dataInicio"] = "Date";
-        model_internal::propertyTypeMap["descricao"] = "String";
         model_internal::propertyTypeMap["status"] = "String";
+        model_internal::propertyTypeMap["descricao"] = "String";
 
         model_internal::_instance = value;
     }
@@ -351,13 +351,13 @@ internal class _TarefaEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
     }
 
     [Bindable(event="propertyChange")]
-    public function get isDescricaoAvailable():Boolean
+    public function get isStatusAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isStatusAvailable():Boolean
+    public function get isDescricaoAvailable():Boolean
     {
         return true;
     }
@@ -421,13 +421,13 @@ internal class _TarefaEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
     }
 
     [Bindable(event="propertyChange")]   
-    public function get descricaoStyle():com.adobe.fiber.styles.Style
+    public function get statusStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get statusStyle():com.adobe.fiber.styles.Style
+    public function get descricaoStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

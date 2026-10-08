@@ -27,7 +27,7 @@
         <item name="returnType">Agente</item>
       </annotation>
       <annotation name="ValidProperties">
-        <item name="propertySpecifier">codAgente,status,nomeAgente</item>
+        <item name="propertySpecifier">codAgente,nomeAgente,status</item>
       </annotation>
       <parameter name="arg0" type="integer"/>
       <parameter name="arg1" type="string"/>
@@ -75,7 +75,7 @@
         <item name="returnType">Agente</item>
       </annotation>
       <annotation name="ValidProperties">
-        <item name="propertySpecifier">codAgente,status,nomeAgente</item>
+        <item name="propertySpecifier">codAgente,nomeAgente,status</item>
       </annotation>
       <parameter name="arg0" type="integer"/>
     </function>
@@ -103,14 +103,14 @@
       <item name="Package">valueObjects</item>
     </annotation>
     <annotation name="getList">
-      <item name="propertySpecifier">codAgente,status,nomeAgente</item>
+      <item name="propertySpecifier">codAgente,nomeAgente,status</item>
     </annotation>
     <annotation name="getEntity">
-      <item name="propertySpecifier">codAgente,status,nomeAgente</item>
+      <item name="propertySpecifier">codAgente,nomeAgente,status</item>
     </annotation>
     <property name="codAgente" type="integer"/>
-    <property name="status" type="boolean"/>
     <property name="nomeAgente" type="string"/>
+    <property name="status" type="boolean"/>
   </entity>
   <service name="SistemaService">
     <annotation name="ActionScriptGeneration">
@@ -224,7 +224,7 @@
         <item name="returnType">Tarefa</item>
       </annotation>
       <annotation name="ValidProperties">
-        <item name="propertySpecifier">agente,dataFim,sistema,dataInicioISO,codTarefa,dataInicioFormatada,nome,dataInicio,descricao,status</item>
+        <item name="propertySpecifier">agente,dataFim,sistema,dataInicioISO,codTarefa,dataInicioFormatada,nome,dataInicio,status,descricao</item>
       </annotation>
       <parameter name="arg0" type="integer"/>
       <parameter name="arg1" type="string"/>
@@ -294,7 +294,7 @@
         <item name="returnType">Tarefa</item>
       </annotation>
       <annotation name="ValidProperties">
-        <item name="propertySpecifier">agente,dataFim,sistema,dataInicioISO,codTarefa,dataInicioFormatada,nome,dataInicio,descricao,status</item>
+        <item name="propertySpecifier">agente,dataFim,sistema,dataInicioISO,codTarefa,dataInicioFormatada,nome,dataInicio,status,descricao</item>
       </annotation>
       <parameter name="arg0" type="integer"/>
     </function>
@@ -314,10 +314,10 @@
       <item name="Package">valueObjects</item>
     </annotation>
     <annotation name="getList">
-      <item name="propertySpecifier">agente,dataFim,sistema,dataInicioISO,codTarefa,dataInicioFormatada,nome,dataInicio,descricao,status</item>
+      <item name="propertySpecifier">agente,dataFim,sistema,dataInicioISO,codTarefa,dataInicioFormatada,nome,dataInicio,status,descricao</item>
     </annotation>
     <annotation name="getEntity">
-      <item name="propertySpecifier">agente,dataFim,sistema,dataInicioISO,codTarefa,dataInicioFormatada,nome,dataInicio,descricao,status</item>
+      <item name="propertySpecifier">agente,dataFim,sistema,dataInicioISO,codTarefa,dataInicioFormatada,nome,dataInicio,status,descricao</item>
     </annotation>
     <property name="agente" type="integer"/>
     <property name="dataFim" type="date"/>
@@ -327,7 +327,7 @@
     <property name="dataInicioFormatada" type="string"/>
     <property name="nome" type="string"/>
     <property name="dataInicio" type="date"/>
-    <property name="descricao" type="string"/>
     <property name="status" type="string"/>
+    <property name="descricao" type="string"/>
   </entity>
 </model>

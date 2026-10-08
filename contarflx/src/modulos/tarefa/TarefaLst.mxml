@@ -99,8 +99,10 @@
 			<s:TextInput id="edtSistema" y="79" left="386" right="10"/>
 			<s:Label y="109" left="10" fontWeight="bold" text="Data de Início"/>
 			<s:Label x="202" y="109" fontWeight="bold" text="Data de Finalização"/>
-			<mx:DateField id="dateInicio" x="10" bottom="10" width="184"/>
-			<mx:DateField id="dateFinal" x="202" bottom="10" width="184"/>
+			<mx:DateField id="dateInicio" x="10" bottom="10" width="184" editable="true"
+						formatString="DD/MM/YYYY"/>
+			<mx:DateField id="dateFinal" x="202" bottom="10" width="184" editable="true"
+						formatString="DD/MM/YYYY"/>
 			<s:DropDownList id="comboStatus" x="394" y="126" width="203" selectedIndex="0">
 				<s:dataProvider>
 					<s:ArrayList>

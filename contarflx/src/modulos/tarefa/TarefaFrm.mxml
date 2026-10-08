@@ -203,7 +203,9 @@
 		<s:Label x="640" y="110" fontStyle="italic" fontWeight="bold" text="Status"/>
 		<s:TextArea id="edtTarefa" x="15" y="130" width="439" editable="false"
 					text="{entity.descricao}"/>
-		<mx:DateField id="dateFinal" x="467" y="182" width="170" enabled="false"/>
-		<mx:DateField id="dateInicio" x="467" y="130" width="170" enabled="false"/>
+		<mx:DateField id="dateFinal" x="467" y="182" width="170" editable="true" enabled="false"
+					formatString="DD/MM/YYYY"/>
+		<mx:DateField id="dateInicio" x="467" y="130" width="170" editable="true" enabled="false"
+					formatString="DD/MM/YYYY"/>
 	</s:BorderContainer>
 </s:TitleWindow>
